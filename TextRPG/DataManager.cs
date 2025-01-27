@@ -1,16 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Security.Policy;
 
+
+public class PlayerData
+{
+	public string name;
+	public int level; 
+	public EJobType job;
+	public int attack;
+	public int armor;
+	public int health; 
+	public int gold;
+}
+
+
+
+public class InventoryData
+{
+	public HashSet<string> ownedItems = new HashSet<string>();
+	public HashSet<string> activeItems = new HashSet<string>();
+
+	public bool EquipItem(Item item)
+	{
+		if (activeItems.Contains(item.name))
+		{
+			activeItems.Remove(item.name);
+			return false;
+		}
+
+
+		activeItems.Add(item.name);
+		return true;
+		
+	}
+}
+ 
 public class DataManager
 {
 	public static DataManager Instance;
 
-	public PlayerData playerData;
-	public StoreData storeData;
-	public InventoryData inventoryData;
+	public Dictionary<string, Item> items = new Dictionary<string, Item>();
+
+	public PlayerData playerData = new PlayerData(); 
+	public InventoryData inventoryData = new InventoryData();
 
 	List<PlayerJob> _playerJobs = new List<PlayerJob>();
 
@@ -21,12 +57,13 @@ public class DataManager
 
 		_playerJobs.Add(new PlayerJob(EJobType.WARRIOR, 10, 10, 30));
 		_playerJobs.Add(new PlayerJob(EJobType.ROGUE, 12, 8, 20));
-		_playerJobs.Add(new PlayerJob(EJobType.MAGE, 15, 5, 20)); 
+		_playerJobs.Add(new PlayerJob(EJobType.MAGE, 15, 5, 20));
+
+		InitItems(); 
 	}
 
 	public void CreateNewCharacter(string name, int jobId)
 	{
-		playerData = new PlayerData();
 		playerData.name = name;
 		playerData.level = 1;
 
@@ -35,6 +72,7 @@ public class DataManager
 		playerData.health = _playerJobs[idx].health;
 		playerData.attack = _playerJobs[idx].attack;
 		playerData.armor = _playerJobs[idx].armor;
+		playerData.gold = 100000;
 	}
 
 	public void PrintJobInfos()
@@ -45,31 +83,46 @@ public class DataManager
 			Console.WriteLine($"{i+1}. {pj.jobName} | 공격력 : {pj.attack} | 방어력 : {pj.armor} | 체력 : {pj.health}");
 		}
 	}
+
+	void InitItems()
+	{
+		items.Add("수련자 갑옷", new Equipment("수련자 갑옷", 5, "수련에 도움을 주는 갑옷입니다.", 1000));
+		items.Add("무쇠갑옷", new Equipment("무쇠갑옷", 7, "무쇠로 만들어져 튼튼한 갑옷입니다.", 2200));
+		items.Add("스파르타의 갑옷", new Equipment("스파르타의 갑옷", 9, "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 3500));
+
+		items.Add("낡은 검", new Weapon("낡은 검", 2, "쉽게 볼 수 있는 낡은 검 입니다.", 600));
+		items.Add("청동 도끼", new Weapon("청동 도끼", 5, "어디선가 사용됐던거 같은 도끼입니다.", 1500));
+		items.Add("스파르타의 창", new Weapon("스파르타의 창", 7, "스파르타의 전사들이 사용했다는 전설의 창입니다.", 3000));
+	}
+
+
+	public List<Item> GetPlayerItem(bool activeItem)
+	{
+		List<Item> ret = new List<Item>();
+
+		if (activeItem)
+		{
+			foreach (var item in inventoryData.activeItems)
+				ret.Add(items[item]);
+		}
+		else
+		{
+			foreach (var item in inventoryData.ownedItems)
+			{
+				if (inventoryData.activeItems.Contains(item) == false)
+					ret.Add(items[item]);
+			}
+		}
+		return ret;
+	}
+
+	public bool isOwnItem(Item item)
+	{
+		return inventoryData.ownedItems.Contains(item.name);
+	}
 }
 
-public struct PlayerData
-{
-	public string name;
-	public int level;
-	public EJobType job;
-	public int attack;
-	public int armor;
-	public int health;
-	public int gold;
-}
 
-public struct StoreData
-{
-	public List<int> boughtItems;
-	
-
-}
-
-public struct InventoryData
-{
-	public List<int> ownedItems;
-	public List<int> activeItems;
-}
 
 public enum EJobType
 {
@@ -102,3 +155,4 @@ public struct PlayerJob
 		this.health = hp;
 	}
 }
+

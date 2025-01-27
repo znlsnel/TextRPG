@@ -25,7 +25,7 @@ public class GameManager
 		Console.WriteLine("0. 게임 종료");
 
 		
-		int value = GetPlayerInputInt();
+		int value = GetPlayerInputInt(0, 1);
 
 		if (value == 0)
 			return;
@@ -33,11 +33,11 @@ public class GameManager
 		if (value == 1)
 		{
 			Console.WriteLine();
+			Console.WriteLine("원하시는 직업을 선택해 주세요 : ");
+
 			DataManager.Instance.PrintJobInfos();
 
-			Console.WriteLine();
-			Console.Write("원하시는 직업을 선택해 주세요 : "); 
-			int idx = int.Parse(Console.ReadLine());
+			int idx = GetPlayerInputInt(1, 3);
 
 			Console.WriteLine();
 			Console.Write("캐릭터의 이름을 입력해주세요 : ");
@@ -57,15 +57,26 @@ public class GameManager
 				Thread.Sleep(100);
 				Console.Write(" .");
 			} 
-			town.OpenTown();
+			town.GameOn();
 		}
 	}
 	
-	public int GetPlayerInputInt()
+	public int GetPlayerInputInt(int a, int b)
 	{
+
 		Console.WriteLine();
 		Console.WriteLine("원하시는 행동을 입력해주세요");
 		Console.Write(">> ");
-		return int.Parse(Console.ReadLine()); 
+
+		int ret = int.Parse(Console.ReadLine());
+		while (ret < a || ret > b)
+		{
+			Console.WriteLine("\n잘못된 입력입니다."); 
+			Console.Write(">> ");
+			ret = int.Parse(Console.ReadLine());
+		}
+
+
+		return ret;
 	}
 }

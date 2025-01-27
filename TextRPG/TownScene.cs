@@ -23,7 +23,7 @@ namespace TextRPG
 			_scenes.Add(_storeScene);
 		}
 
-		public void OpenTown()
+		public void GameOn()
 		{
 			while (true)
 			{
@@ -37,7 +37,7 @@ namespace TextRPG
 
 				Console.WriteLine("0. 나가기");
 
-				int value = GameManager.Instance.GetPlayerInputInt();
+				int value = GameManager.Instance.GetPlayerInputInt(0, _scenes.Count);
 				if (value == 0)
 					return;
 
