@@ -1,27 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
- 
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
+using System.Security.Policy;
 
 public class DataManager
 {
 	public static DataManager Instance;
 
-	PlayerData playerData;
-	StoreData storeData;
-	InventoryData inventoryData;
+	public PlayerData playerData;
+	public StoreData storeData;
+	public InventoryData inventoryData;
+
+	List<PlayerJob> _playerJobs = new List<PlayerJob>();
 
 	public DataManager()
 	{
 		if (Instance == null)
 			Instance = this;
+
+		_playerJobs.Add(new PlayerJob(EJobType.WARRIOR, 10, 10, 30));
+		_playerJobs.Add(new PlayerJob(EJobType.ROGUE, 12, 8, 20));
+		_playerJobs.Add(new PlayerJob(EJobType.MAGE, 15, 5, 20)); 
 	}
 
-	public void CreateNewCharacter(string name, EJobType job)
+	public void CreateNewCharacter(string name, int jobId)
 	{
 		playerData = new PlayerData();
 		playerData.name = name;
-		playerData.job = job;
-		PlayerStatus s = new PlayerStatus();
+		playerData.level = 1;
+
+		int idx = jobId - 1;
+		playerData.job = _playerJobs[idx].type; 
+		playerData.health = _playerJobs[idx].health;
+		playerData.attack = _playerJobs[idx].attack;
+		playerData.armor = _playerJobs[idx].armor;
+	}
+
+	public void PrintJobInfos()
+	{
+		for (int i = 0; i < _playerJobs.Count; i++)
+		{
+			PlayerJob pj = _playerJobs[i];
+			Console.WriteLine($"{i+1}. {pj.jobName} | 공격력 : {pj.attack} | 방어력 : {pj.armor} | 체력 : {pj.health}");
+		}
 	}
 }
 
@@ -30,22 +52,10 @@ public struct PlayerData
 	public string name;
 	public int level;
 	public EJobType job;
-	public PlayerStatus status;
-	public int gold;
-}
-
-public struct PlayerStatus
-{
 	public int attack;
 	public int armor;
-	public int hp;
-
-	public PlayerStatus(int att, int arm, int h)
-	{
-		attack = att;
-		armor = arm;
-		hp = h;
-	}
+	public int health;
+	public int gold;
 }
 
 public struct StoreData
@@ -68,3 +78,27 @@ public enum EJobType
 	MAGE
 }
 
+public struct PlayerJob
+{
+	public string jobName;
+	public EJobType type;
+	public int attack;
+	public int armor;
+	public int health;
+
+	public PlayerJob(EJobType job, int att, int arm, int hp)
+	{
+		this.type = job;
+
+		if (job == EJobType.WARRIOR)
+			this.jobName = "전사";
+		else if (job == EJobType.ROGUE)
+			this.jobName = "도적";
+		else
+			this.jobName = "마법사";
+
+		this.attack = att;
+		this.armor = arm;
+		this.health = hp;
+	}
+}

@@ -11,8 +11,10 @@ namespace TextRPG
 	{
 		static void Main(string[] args)
 		{
+			DataManager dataManager = new DataManager();
 			GameManager game = new GameManager();
-			game.OpenTown();
+
+			game.GameStart();
 		}
 	}
 }

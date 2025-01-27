@@ -1,60 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using TextRPG;
 
 public class GameManager
 {
-	Scene _statusScene = new PlayerStatusScene("상태 보기");
-	Scene _inventoryScene = new InventoryScene("인벤토리");
-	Scene _storeScene = new StoreScene("상점");	
-
-	List<Scene> _scenes = new List<Scene>();
+	public static GameManager Instance;
+	TownScene town = new TownScene();
 
 	public GameManager()
 	{
-		_scenes.Add(_statusScene);
-		_scenes.Add(_inventoryScene);
-		_scenes.Add(_storeScene);
+		Instance = this;
 	}
 
-	public void OpenTown()
-	{
-		Console.Clear();
-		Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
-		Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
-		Console.WriteLine();
-
-		for (int i = 0; i < _scenes.Count; i++)
-			Console.WriteLine($"{i+1}. {_scenes[i].GetName()}");
-
-		Console.WriteLine();
-		Console.WriteLine("원하시는 행동을 입력해주세요.");
-		Console.Write(">> ");
-		int value = int.Parse(Console.ReadLine());
-
-		_scenes[value].StartScene(); 
-	}
+	
 
 	public void GameStart()
 	{
 		Console.Clear();
 		Console.WriteLine("스파르타 RPG에 접속하신 것을 환영합니다.");
 
+		Console.WriteLine();
 		Console.WriteLine("1. 캐릭터 만들기");
 		Console.WriteLine("0. 게임 종료");
 
-		Console.WriteLine("원하시는 행동을 입력해주세요.");
-		Console.Write(">> ");
-		int value = int.Parse(Console.ReadLine());
+		
+		int value = GetPlayerInputInt();
 
 		if (value == 0)
 			return;
 
 		if (value == 1)
 		{
+			Console.WriteLine();
+			DataManager.Instance.PrintJobInfos();
 
+			Console.WriteLine();
+			Console.Write("원하시는 직업을 선택해 주세요 : "); 
+			int idx = int.Parse(Console.ReadLine());
+
+			Console.WriteLine();
+			Console.Write("캐릭터의 이름을 입력해주세요 : ");
+			string name = Console.ReadLine();
+			DataManager.Instance.CreateNewCharacter(name, idx);
+
+			for (int i = 0; i < 10; i++)
+			{
+				Thread.Sleep(100);
+				Console.Write(" .");
+			}
+
+			Console.WriteLine();
+			Console.WriteLine("캐릭터 생성이 완료 되었습니다. \n게임에 접속합니다");
+			for (int i = 0; i < 10; i++)
+			{
+				Thread.Sleep(100);
+				Console.Write(" .");
+			} 
+			town.OpenTown();
 		}
 	}
 	
-
+	public int GetPlayerInputInt()
+	{
+		Console.WriteLine();
+		Console.WriteLine("원하시는 행동을 입력해주세요");
+		Console.Write(">> ");
+		return int.Parse(Console.ReadLine()); 
+	}
 }
