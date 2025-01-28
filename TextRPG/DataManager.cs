@@ -35,20 +35,49 @@ public class PlayerData
 public class InventoryData
 {
 	public HashSet<string> ownedItems = new HashSet<string>();
-	public HashSet<string> activeItems = new HashSet<string>();
+
+	public Item weaponItem;
+	public Item equipmentItem;
 
 	public bool EquipItem(Item item)
 	{
-		if (activeItems.Contains(item.name))
+		if (item.type == EItemType.WEAPON)
 		{
-			activeItems.Remove(item.name);
-			return false;
+			if (weaponItem == item)
+			{
+				weaponItem = null;
+				return false;
+			}
+
+			weaponItem = item;
+			return true;
 		}
+		else
+		{
+			if (equipmentItem == item)
+			{
+				equipmentItem = null; 
+				return false;
+			}
 
+			equipmentItem = item;
+			return true;
 
-		activeItems.Add(item.name);
-		return true;
-		
+		} 
+	}
+
+	public void RemoveItem(Item item)
+	{
+		ownedItems.Remove(item.name);
+		if (weaponItem == item)
+			weaponItem = null; 
+
+		else if (equipmentItem == item)
+			equipmentItem = null;
+	}
+	public bool IsEquippedItem(Item item)
+	{ 
+		return weaponItem == item || equipmentItem == item;
 	}
 }
  
@@ -103,24 +132,14 @@ public class DataManager
 	}
 
 
-	public List<Item> GetPlayerItem(bool activeItem)
+	public List<Item> GetPlayerItem()
 	{
 		List<Item> ret = new List<Item>();
 
-		if (activeItem)
-		{
-			foreach (var item in inventoryData.activeItems)
-				ret.Add(items[item]);
-		}
-		else
-		{
-			foreach (var item in inventoryData.ownedItems)
-			{
-				if (inventoryData.activeItems.Contains(item) == false)
-					ret.Add(items[item]);
-			}
-		}
-		return ret;
+
+		foreach (var item in inventoryData.ownedItems)
+			ret.Add(items[item]);
+		return ret; 
 	}
 
 	public bool isOwnItem(Item item)

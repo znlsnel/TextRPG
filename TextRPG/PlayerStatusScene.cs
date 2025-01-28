@@ -15,7 +15,7 @@ namespace TextRPG
 
 
 		public override void StartScene()
-		{
+		{ 
 			Console.Clear();
 			Console.WriteLine("캐릭터의 정보입니다."); 
 			Console.WriteLine();
@@ -23,16 +23,12 @@ namespace TextRPG
 			PlayerData pd = DataManager.Instance.playerData;
 			Console.WriteLine($"Lv. {pd.level}");
 
-			int addAttack = 0;
-			int addArmor = 0;
-			List<Item> items = DataManager.Instance.GetPlayerItem(true);
-			foreach (Item item in items)
-			{
-				if (item.type == EItemType.WEAPON)
-					addAttack += item.value;
-				else
-					addArmor += item.value;
-			}
+			Item weapon = DataManager.Instance.inventoryData.weaponItem;
+			Item equipMent = DataManager.Instance.inventoryData.equipmentItem;
+
+			int addAttack = weapon != null ? weapon.value : 0;
+			int addArmor = equipMent != null ? equipMent.value : 0;
+
 
 			string jobName = pd.job == EJobType.WARRIOR ? "전사" : pd.job == EJobType.ROGUE ? "도적" : "마법사";
 			Console.WriteLine($"{pd.name} ( {jobName} )");

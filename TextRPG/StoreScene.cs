@@ -134,16 +134,13 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
 
-			List<Item> activeItem = DataManager.Instance.GetPlayerItem(true);
-			List<Item> ownItem = DataManager.Instance.GetPlayerItem(false);
+			List<Item> items = DataManager.Instance.GetPlayerItem();
 
 
-			int cnt = 0;
-			foreach (Item item in activeItem)
+			int cnt = 0; 
+			foreach (Item item in items)
 				Console.WriteLine($"- {++cnt} {item.GetItemInfo()} | {item.price * sellPriceRate / 100} G");
 
-			foreach (Item item in ownItem)
-				Console.WriteLine($"- {++cnt} {item.GetItemInfo()} | {item.price * sellPriceRate / 100} G");
 
 			Console.WriteLine("\n0. 나가기");
 
@@ -152,10 +149,8 @@ namespace TextRPG
 			if (idx-- == 0)
 				return;
 
-			if (idx >= activeItem.Count)
-				SellItem(ownItem[activeItem.Count - idx]); 
-			else
-				SellItem(activeItem[idx]);
+
+			SellItem(items[idx]);
 			 
 		}
 
@@ -163,9 +158,8 @@ namespace TextRPG
 		{
 			int price = item.price * sellPriceRate / 100;
 			DataManager.Instance.playerData.gold += price;
-
-			DataManager.Instance.inventoryData.ownedItems.Remove(item.name);
-			DataManager.Instance.inventoryData.activeItems.Remove(item.name);
+			 
+			DataManager.Instance.inventoryData.RemoveItem(item);
 
 			Console.Clear();
 			Console.WriteLine($"{item.name}을 판매했습니다! ( + {price} G )");

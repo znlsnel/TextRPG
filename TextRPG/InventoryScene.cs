@@ -31,17 +31,17 @@ namespace TextRPG
 		public void ShowInventory()
 		{
 			Console.Clear();
-			List<Item> activeItem = DataManager.Instance.GetPlayerItem(true);
-			List<Item> ownedItem = DataManager.Instance.GetPlayerItem(false);
+			List<Item> items = DataManager.Instance.GetPlayerItem();
 			Console.WriteLine("[아이템 목록]");
 
 			int cnt = 0;
-			for (int i = 0; i < activeItem.Count; i++)
-				Console.WriteLine($"- {++cnt}. [E] {activeItem[i].GetItemInfo()}");
+			for (int i = 0; i < items.Count; i++)
+			{
+				bool isEquip = DataManager.Instance.inventoryData.IsEquippedItem(items[i]);
+				Console.WriteLine($"- {++cnt}. {(isEquip ? "[E] " : " ")}{items[i].GetItemInfo()}");
 
-			for (int i = 0; i < ownedItem.Count; i++)
-				Console.WriteLine($"- {++cnt}. {ownedItem[i].GetItemInfo()}");
-			
+			}
+
 
 			if (cnt == 0)
 				Console.WriteLine("아이템이 없습니다.");
@@ -55,10 +55,7 @@ namespace TextRPG
 
 			idx -= 1;
 
-			if (idx >= activeItem.Count)
-				EquipItem(ownedItem[idx - activeItem.Count]);
-			else
-				EquipItem(activeItem[idx]);
+			EquipItem(items[idx]);
 
 		}
 
