@@ -62,7 +62,7 @@ public class DungeonScene : Scene
 		}
 		else
 		{
-			Console.WriteLine("[던전 클리어]");
+			Console.WriteLine("[던전 클리어]"); 
 			Console.WriteLine($"축하합니다!!");
 			Console.WriteLine($"{names[level]} 던전을 클리어 하였습니다!");
 			int add = (rewards[level] * pd.attack / 100);
@@ -75,7 +75,13 @@ public class DungeonScene : Scene
 		Console.WriteLine();
 		Console.WriteLine($"체력 {pd.hp} -> {Math.Max(0, pd.hp - minusHp)}");
 		if (rewardGold > 0)
+		{
 			Console.WriteLine($"Gold {pd.gold} -> {pd.gold + rewardGold}");
+			Console.WriteLine($"Level {pd.level} -> {pd.level + 1}");
+			pd.level++;
+			pd.armor++;
+			pd.attack++;
+		}
 
 		pd.hp = Math.Max(0, pd.hp - minusHp);
 		pd.gold = pd.gold + rewardGold; 
