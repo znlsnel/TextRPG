@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using TextRPG;
+using Newtonsoft.Json;
 
 public class GameManager
 {
 	public static GameManager Instance;
-	TownScene town = new TownScene();
+	TownScene town = new TownScene(); 
 
 	public GameManager()
 	{
@@ -27,35 +28,39 @@ public class GameManager
 		int value = GetPlayerInputInt(0, 1);
 
 		if (value == 1)
+			CreateCharacter();
+		
+	}
+
+	void CreateCharacter()
+	{
+		Console.WriteLine();
+		Console.WriteLine("원하시는 직업을 선택해 주세요 : ");
+
+		DataManager.Instance.PrintJobInfos();
+
+		int idx = GetPlayerInputInt(1, 3);
+
+		Console.WriteLine();
+		Console.Write("캐릭터의 이름을 입력해주세요 : ");
+		string name = Console.ReadLine();
+		DataManager.Instance.CreateNewCharacter(name, idx);
+
+		for (int i = 0; i < 10; i++)
 		{
-			Console.WriteLine();
-			Console.WriteLine("원하시는 직업을 선택해 주세요 : ");
-
-			DataManager.Instance.PrintJobInfos();
-
-			int idx = GetPlayerInputInt(1, 3);
-
-			Console.WriteLine();
-			Console.Write("캐릭터의 이름을 입력해주세요 : ");
-			string name = Console.ReadLine();
-			DataManager.Instance.CreateNewCharacter(name, idx);
-
-			for (int i = 0; i < 10; i++)
-			{
-				Thread.Sleep(100);
-				Console.Write(" .");
-			}
-			Console.WriteLine();
-			Console.WriteLine();
-
-			Console.WriteLine("캐릭터 생성이 완료 되었습니다. \n게임에 접속합니다");
-			for (int i = 0; i < 10; i++)
-			{
-				Thread.Sleep(100);
-				Console.Write(" .");
-			} 
-			town.GameOn();
+			Thread.Sleep(100);
+			Console.Write(" .");
 		}
+		Console.WriteLine();
+		Console.WriteLine();
+
+		Console.WriteLine("캐릭터 생성이 완료 되었습니다. \n게임에 접속합니다");
+		for (int i = 0; i < 10; i++)
+		{
+			Thread.Sleep(100);
+			Console.Write(" .");
+		}
+		town.GameOn();
 	}
 	 
 	public int GetPlayerInputInt(int a, int b)
