@@ -13,7 +13,6 @@ public class GameManager
 		Instance = this;
 	}
 
-	
 
 	public void GameStart()
 	{
@@ -26,9 +25,6 @@ public class GameManager
 
 		
 		int value = GetPlayerInputInt(0, 1);
-
-		if (value == 0)
-			return;
 
 		if (value == 1)
 		{
@@ -60,10 +56,9 @@ public class GameManager
 			town.GameOn();
 		}
 	}
-	
+	 
 	public int GetPlayerInputInt(int a, int b)
 	{
-
 		Console.WriteLine();
 		Console.WriteLine("원하시는 행동을 입력해주세요");
 		Console.Write(">> ");
@@ -75,7 +70,6 @@ public class GameManager
 			Console.Write(">> ");
 			ret = int.Parse(Console.ReadLine());
 		}
-
 
 		return ret;
 	}

@@ -38,7 +38,7 @@ namespace TextRPG
 			Console.WriteLine($"{pd.name} ( {jobName} )");
 			Console.WriteLine($"공격력 : {pd.attack + addAttack} (+{addAttack})");
 			Console.WriteLine($"방어력 : {pd.armor + addArmor} (+{addArmor})");
-			Console.WriteLine($"체력 : {pd.health}");
+			Console.WriteLine($"체력 : {pd.maxHp}");
 			Console.WriteLine($"Gold : {pd.gold}G");
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");

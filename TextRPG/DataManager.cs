@@ -13,8 +13,21 @@ public class PlayerData
 	public EJobType job;
 	public int attack;
 	public int armor;
-	public int health; 
+	public int maxHp; 
+	public int hp; 
 	public int gold;
+
+	public PlayerData(string name, int level, EJobType job, int attack, int armor, int maxHp, int gold)
+	{
+		this.name = name;
+		this.level = level;
+		this.job = job;
+		this.attack = attack;
+		this.armor = armor;
+		this.maxHp = maxHp;
+		this.hp = maxHp;
+		this.gold = gold;
+	}
 }
 
 
@@ -45,7 +58,7 @@ public class DataManager
 
 	public Dictionary<string, Item> items = new Dictionary<string, Item>();
 
-	public PlayerData playerData = new PlayerData(); 
+	public PlayerData playerData; 
 	public InventoryData inventoryData = new InventoryData();
 
 	List<PlayerJob> _playerJobs = new List<PlayerJob>();
@@ -64,15 +77,9 @@ public class DataManager
 
 	public void CreateNewCharacter(string name, int jobId)
 	{
-		playerData.name = name;
-		playerData.level = 1;
-
 		int idx = jobId - 1;
-		playerData.job = _playerJobs[idx].type; 
-		playerData.health = _playerJobs[idx].health;
-		playerData.attack = _playerJobs[idx].attack;
-		playerData.armor = _playerJobs[idx].armor;
-		playerData.gold = 100000;
+		playerData = new PlayerData(name, 1, _playerJobs[idx].type, _playerJobs[idx].attack, 
+											_playerJobs[idx].armor, _playerJobs[idx].health, 100000);
 	}
 
 	public void PrintJobInfos()
