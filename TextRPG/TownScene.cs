@@ -14,6 +14,8 @@ namespace TextRPG
 		Scene _inventoryScene = new InventoryScene("인벤토리");
 		Scene _storeScene = new StoreScene("상점");
 		Scene _restScene = new RestScene("휴식 하기");
+		Scene _dungeon = new DungeonScene("던전입장");
+
 		List<Scene> _scenes = new List<Scene>();
 
 		public TownScene()  
@@ -22,6 +24,7 @@ namespace TextRPG
 			_scenes.Add(_inventoryScene);
 			_scenes.Add(_storeScene);
 			_scenes.Add(_restScene);
+			_scenes.Add(_dungeon); 
 		}
 
 		public void GameOn()

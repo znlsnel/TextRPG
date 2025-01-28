@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManager.cs" />
+    <Compile Include="DungeonScene.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="InventoryScene.cs" />
     <Compile Include="Item.cs" />

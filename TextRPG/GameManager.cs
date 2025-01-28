@@ -45,8 +45,9 @@ public class GameManager
 				Thread.Sleep(100);
 				Console.Write(" .");
 			}
-
 			Console.WriteLine();
+			Console.WriteLine();
+
 			Console.WriteLine("캐릭터 생성이 완료 되었습니다. \n게임에 접속합니다");
 			for (int i = 0; i < 10; i++)
 			{

@@ -11,7 +11,7 @@ namespace TextRPG
 		public PlayerStatusScene(string name) : base(name)
 		{
 
-		}
+		} 
 
 
 		public override void StartScene()
@@ -29,12 +29,12 @@ namespace TextRPG
 			int addAttack = weapon != null ? weapon.value : 0;
 			int addArmor = equipMent != null ? equipMent.value : 0;
 
-
 			string jobName = pd.job == EJobType.WARRIOR ? "전사" : pd.job == EJobType.ROGUE ? "도적" : "마법사";
 			Console.WriteLine($"{pd.name} ( {jobName} )");
-			Console.WriteLine($"공격력 : {pd.attack + addAttack} (+{addAttack})");
-			Console.WriteLine($"방어력 : {pd.armor + addArmor} (+{addArmor})");
-			Console.WriteLine($"체력 : {pd.maxHp}");
+			Console.WriteLine($"공격력 : {pd.GetAttack()} (+{addAttack})"); 
+			Console.WriteLine($"방어력 : {pd.GetArmor()} (+{addArmor})");
+			Console.WriteLine($"최대 체력 : {pd.maxHp}");
+			Console.WriteLine($"현재 체력 : {pd.hp}");
 			Console.WriteLine($"Gold : {pd.gold}G");
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");

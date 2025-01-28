@@ -28,6 +28,23 @@ public class PlayerData
 		this.hp = maxHp;
 		this.gold = gold;
 	}
+
+	public int GetAttack()
+	{
+		Item item = DataManager.Instance.inventoryData.weaponItem;
+		if (item != null)
+			return attack + item.value;
+		return attack;
+	}
+
+	public int GetArmor()
+	{
+		Item item = DataManager.Instance.inventoryData.equipmentItem;
+		if (item != null)
+			return armor + item.value;
+		 
+		return armor;
+	} 
 }
 
 
