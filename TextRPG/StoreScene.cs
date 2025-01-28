@@ -9,8 +9,10 @@ namespace TextRPG
 {
 	public class StoreScene : Scene
 	{
+		DataManager data;
 		public StoreScene(string name) : base(name)
 		{
+			data = DataManager.Instance;
 		}
 		int sellPriceRate = 85;
 		public override void StartScene()
@@ -20,17 +22,17 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("[보유 골드]");
 
-			PlayerData pd = DataManager.Instance.playerData;
+			PlayerData pd = data.playerData;
 			Console.WriteLine(pd.gold + " G");
 
-			Dictionary<string, Item> items = DataManager.Instance.items;
+			Dictionary<string, Item> items = data.items;
 
 			Console.WriteLine();
 
 			foreach (var item in items)
 			{
 				Console.Write($"- {item.Value.GetItemInfo()} | ");
-				if (DataManager.Instance.isOwnItem(item.Value))
+				if (data.inventory.isOwnItem(item.Value))
 					Console.Write(" 구매완료");
 				else
 					Console.Write($" {item.Value.price} G");
@@ -58,10 +60,10 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("[보유 골드]");
 
-			PlayerData pd = DataManager.Instance.playerData;
+			PlayerData pd = data.playerData;
 			Console.WriteLine(pd.gold + " G");
 
-			Dictionary<string, Item> temp = DataManager.Instance.items;
+			Dictionary<string, Item> temp = data.items;
 			List<Item> items = new List<Item>();
 			foreach (var i in temp)
 				items.Add(i.Value);
@@ -72,7 +74,7 @@ namespace TextRPG
 			foreach (var item in items)
 			{
 				Console.Write($"- {++cnt} {item.GetItemInfo()} | ");
-				if (DataManager.Instance.isOwnItem(item))
+				if (data.inventory.isOwnItem(item))
 					Console.Write(" 구매완료");
 				else
 					Console.Write($" {item.price} G");
@@ -93,7 +95,7 @@ namespace TextRPG
 		{
 			Console.Clear();
 			bool hasEnoughGold = item.price > DataManager.Instance.playerData.gold;
-			bool bought = DataManager.Instance.isOwnItem(item);
+			bool bought = data.inventory.isOwnItem(item);
 
 			if (bought || hasEnoughGold)
 			{
@@ -106,8 +108,8 @@ namespace TextRPG
 			}
 			else
 			{
-				DataManager.Instance.playerData.gold -= item.price;
-				DataManager.Instance.inventoryData.ownedItems.Add(item.name);
+				data.playerData.gold -= item.price;
+				data.inventory.ownedItems.Add(item.name);
 				Console.WriteLine($"{item.name}을 구매했습니다!");
 			}
 			
@@ -128,13 +130,13 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("[보유 골드]");
 
-			PlayerData pd = DataManager.Instance.playerData;
+			PlayerData pd = data.playerData;
 			Console.WriteLine($"{pd.gold} G");
 
 			Console.WriteLine();
 			Console.WriteLine("[아이템 목록]");
 
-			List<Item> items = DataManager.Instance.GetPlayerItem();
+			List<Item> items = data.inventory.GetPlayerItem();
 
 
 			int cnt = 0; 
@@ -157,9 +159,9 @@ namespace TextRPG
 		void SellItem(Item item)
 		{
 			int price = item.price * sellPriceRate / 100;
-			DataManager.Instance.playerData.gold += price;
+			data.playerData.gold += price;
 			 
-			DataManager.Instance.inventoryData.RemoveItem(item);
+			data.inventory.RemoveItem(item);
 
 			Console.Clear();
 			Console.WriteLine($"{item.name}을 판매했습니다! ( + {price} G )");

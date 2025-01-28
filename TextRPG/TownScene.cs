@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TextRPG
@@ -39,13 +40,33 @@ namespace TextRPG
 				for (int i = 0; i < _scenes.Count; i++)
 					Console.WriteLine($"{i + 1}. {_scenes[i].GetName()}");
 
+				Console.WriteLine($"{_scenes.Count+1}. 저장하기");
 				Console.WriteLine("0. 나가기");
 
-				int value = GameManager.Instance.GetPlayerInputInt(0, _scenes.Count);
+				int value = GameManager.Instance.GetPlayerInputInt(0, _scenes.Count+1);
 				if (value == 0)
 					return;
 
-				_scenes[value - 1].StartScene();
+				if (value == _scenes.Count+1)
+				{
+					DataManager.Instance.SaveData();
+					Console.WriteLine();
+					Console.Write("게임을 저장합니다 ");
+					
+					for (int i = 0; i < 10; i++)
+					{
+						Thread.Sleep(50);
+						Console.Write(".  "); 
+					}
+
+				    Console.WriteLine();
+				    Console.WriteLine("게임 저장에 성공했습니다.");
+				    Console.WriteLine("\n0. 돌아가기");
+					GameManager.Instance.GetPlayerInputInt(0, 0);
+				
+				}
+				else
+					_scenes[value - 1].StartScene();
 			}
 		}
 	}

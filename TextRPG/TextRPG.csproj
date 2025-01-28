@@ -51,6 +51,7 @@
     <Compile Include="GameManager.cs" />
     <Compile Include="InventoryScene.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="InventoryData.cs" />
     <Compile Include="PlayerStatusScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

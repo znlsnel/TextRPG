@@ -30,14 +30,14 @@ namespace TextRPG
 		  
 		public void ShowInventory()
 		{
-			Console.Clear();
-			List<Item> items = DataManager.Instance.GetPlayerItem();
+			Console.Clear(); 
+			List<Item> items = DataManager.Instance.inventory.GetPlayerItem();
 			Console.WriteLine("[아이템 목록]");
 
 			int cnt = 0;
 			for (int i = 0; i < items.Count; i++)
 			{
-				bool isEquip = DataManager.Instance.inventoryData.IsEquippedItem(items[i]);
+				bool isEquip = DataManager.Instance.inventory.IsEquippedItem(items[i]);
 				Console.WriteLine($"- {++cnt}. {(isEquip ? "[E] " : " ")}{items[i].GetItemInfo()}");
 
 			}
@@ -63,7 +63,7 @@ namespace TextRPG
 		{
 			Console.Clear();
 
-			if (DataManager.Instance.inventoryData.EquipItem(item))
+			if (DataManager.Instance.inventory.EquipItem(item))
 				Console.WriteLine($"{item.name}을 장착했습니다!");
 			else
 				Console.WriteLine($"{item.name}을 장착 해제 했습니다!");

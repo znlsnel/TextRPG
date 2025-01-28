@@ -23,8 +23,8 @@ namespace TextRPG
 			PlayerData pd = DataManager.Instance.playerData;
 			Console.WriteLine($"Lv. {pd.level}");
 
-			Item weapon = DataManager.Instance.inventoryData.weaponItem;
-			Item equipMent = DataManager.Instance.inventoryData.equipmentItem;
+			Item weapon = DataManager.Instance.inventory.weaponItem;
+			Item equipMent = DataManager.Instance.inventory.equipmentItem;
 
 			int addAttack = weapon != null ? weapon.value : 0;
 			int addArmor = equipMent != null ? equipMent.value : 0;

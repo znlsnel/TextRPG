@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
@@ -17,6 +19,10 @@ public class PlayerData
 	public int hp; 
 	public int gold;
 
+	public List<string> myItems = new List<string>();
+	public string weapon = "";
+	public string equipment = "";
+		
 	public PlayerData(string name, int level, EJobType job, int attack, int armor, int maxHp, int gold)
 	{
 		this.name = name;
@@ -31,7 +37,7 @@ public class PlayerData
 
 	public int GetAttack()
 	{
-		Item item = DataManager.Instance.inventoryData.weaponItem;
+		Item item = DataManager.Instance.inventory.weaponItem;
 		if (item != null)
 			return attack + item.value;
 		return attack;
@@ -39,7 +45,7 @@ public class PlayerData
 
 	public int GetArmor()
 	{
-		Item item = DataManager.Instance.inventoryData.equipmentItem;
+		Item item = DataManager.Instance.inventory.equipmentItem;
 		if (item != null)
 			return armor + item.value;
 		 
@@ -49,54 +55,7 @@ public class PlayerData
 
 
 
-public class InventoryData
-{
-	public HashSet<string> ownedItems = new HashSet<string>();
 
-	public Item weaponItem;
-	public Item equipmentItem;
-
-	public bool EquipItem(Item item)
-	{
-		if (item.type == EItemType.WEAPON)
-		{
-			if (weaponItem == item)
-			{
-				weaponItem = null;
-				return false;
-			}
-
-			weaponItem = item;
-			return true;
-		}
-		else
-		{
-			if (equipmentItem == item)
-			{
-				equipmentItem = null; 
-				return false;
-			}
-
-			equipmentItem = item;
-			return true;
-
-		} 
-	}
-
-	public void RemoveItem(Item item)
-	{
-		ownedItems.Remove(item.name);
-		if (weaponItem == item)
-			weaponItem = null; 
-
-		else if (equipmentItem == item)
-			equipmentItem = null;
-	}
-	public bool IsEquippedItem(Item item)
-	{ 
-		return weaponItem == item || equipmentItem == item;
-	}
-}
  
 public class DataManager
 {
@@ -105,7 +64,7 @@ public class DataManager
 	public Dictionary<string, Item> items = new Dictionary<string, Item>();
 
 	public PlayerData playerData; 
-	public InventoryData inventoryData = new InventoryData();
+	public InventoryData inventory = new InventoryData();
 
 	List<PlayerJob> _playerJobs = new List<PlayerJob>();
 
@@ -148,21 +107,38 @@ public class DataManager
 		items.Add("스파르타의 창", new Weapon("스파르타의 창", 7, "스파르타의 전사들이 사용했다는 전설의 창입니다.", 3000));
 	}
 
-
-	public List<Item> GetPlayerItem()
+	public void SaveData()
 	{
-		List<Item> ret = new List<Item>();
+		playerData.myItems = new List<string>();
 
+		foreach (var item in inventory.ownedItems)
+			playerData.myItems.Add(item);
+		playerData.weapon = inventory.weaponItem != null ? inventory.weaponItem.name : "";
+		playerData.equipment = inventory.equipmentItem != null ? inventory.equipmentItem.name : "";
 
-		foreach (var item in inventoryData.ownedItems)
-			ret.Add(items[item]);
-		return ret; 
+		string json = JsonConvert.SerializeObject(playerData);
+		File.WriteAllText($"textRPG_{playerData.name}.json", json); 
 	}
 
-	public bool isOwnItem(Item item)
+	public bool LoadData(string name)
 	{
-		return inventoryData.ownedItems.Contains(item.name);
+		string path = $"textRPG_{name}.json";
+		if (File.Exists(path)) 
+		{
+			string jsonData = File.ReadAllText(path);
+			playerData =  JsonConvert.DeserializeObject<PlayerData>(jsonData);
+
+			foreach (var item in playerData.myItems)
+				inventory.ownedItems.Add(item);
+
+			inventory.weaponItem = items[playerData.weapon];
+			inventory.equipmentItem = items[playerData.equipment];
+
+			return true;
+		}
+		return false;
 	}
+
 }
 
 

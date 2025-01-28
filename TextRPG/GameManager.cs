@@ -22,14 +22,16 @@ public class GameManager
 
 		Console.WriteLine();
 		Console.WriteLine("1. 캐릭터 만들기");
+		Console.WriteLine("2. 저장 데이터 불러오기");
 		Console.WriteLine("0. 게임 종료");
 
 		
-		int value = GetPlayerInputInt(0, 1);
+		int value = GetPlayerInputInt(0, 2);
 
 		if (value == 1)
 			CreateCharacter();
-		
+		else if (value == 2)
+			LoadCharacter();
 	}
 
 	void CreateCharacter()
@@ -63,6 +65,34 @@ public class GameManager
 		town.GameOn();
 	}
 	 
+	void LoadCharacter()
+	{
+		Console.WriteLine();
+		Console.WriteLine("기존에 플레이 했던 캐릭터의 이름을 입력해주세요");
+
+		string name = Console.ReadLine();
+		if (DataManager.Instance.LoadData(name))
+		{
+			Console.WriteLine("\n데이터를 불러오는데 성공했습니다!");
+
+			Console.WriteLine("\n1. 게임시작");
+			Console.WriteLine("0. 나가기");
+			if (GetPlayerInputInt(0, 1) == 0)
+				GameStart();
+			 
+			else
+				town.GameOn();
+		}
+		else
+		{
+			Console.WriteLine("\n데이터를 찾을 수 없습니다.");
+
+			Console.WriteLine("\n0. 돌아가기");
+			GetPlayerInputInt(0, 0);
+			GameStart();
+		}
+	}
+
 	public int GetPlayerInputInt(int a, int b)
 	{
 		Console.WriteLine();
