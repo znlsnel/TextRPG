@@ -53,7 +53,7 @@ public class Weapon : Item
 		while (cnt-- > 0)
 			ds = ds + "  ";
 
-		ret = ret + $"\t| 공격력 + {value} \t |  {ds} \t | ";
+		ret = ret + $"\t| 공격력 + {value} \t |  {ds} \t";
 
 		return ret;
 	}
@@ -81,7 +81,7 @@ public class Equipment : Item
 			ds = ds + "  "; 
 
 
-		ret = ret + $"\t| 방어력 + {value} \t |  {ds} \t | ";
+		ret = ret + $"\t| 방어력 + {value} \t |  {ds} \t";
 
 		return ret;
 	}
