@@ -64,7 +64,8 @@ public class InventoryScene : Scene
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine($"착용이 불가능합니다! 해당 아이템은 [{DataManager.Instance.jobNames[item.allowedJob]}]전용 아이템입니다.");
-			Console.ForegroundColor = ConsoleColor.White;
+			Console.ForegroundColor = ConsoleColor.White; 
+
 		}
 		else if (DataManager.Instance.inventory.EquipItem(item))
 			Console.WriteLine($"{item.name}을 장착했습니다!");
