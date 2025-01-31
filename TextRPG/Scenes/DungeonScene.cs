@@ -4,18 +4,17 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextRPG;
 
 public class DungeonScene : Scene
 {
-	public DungeonScene(string name) : base(name){}
+	public DungeonScene(string name) : base(name) { }
 	Random rand = new Random();
 
 	int[] levels = new int[3] { 5, 11, 17 };
-	int[] rewards = new int[3] {1000, 1700, 2500};
-	string[] names = new string[3] { "쉬움", "일반", "어려운"};
+	int[] rewards = new int[3] { 1000, 1700, 2500 };
+	string[] names = new string[3] { "쉬움", "일반", "어려운" };
 
-	public override void StartScene() 
+	public override void StartScene()
 	{
 		Console.Clear();
 		Console.WriteLine("[던전입장]");
@@ -26,10 +25,10 @@ public class DungeonScene : Scene
 		Console.WriteLine($"3. {names[2]} 던전 \t 방어력 {levels[2]} 이상 권장");
 		Console.WriteLine("0. 나가기");
 
-		int value = GameManager.Instance.SelectOption(0, 3);
+		int value = SpartaRPG.SelectOption(0, 3);
 
 		if (value != 0)
-			EnterDungeon(value-1);
+			EnterDungeon(value - 1);
 	}
 
 	public void EnterDungeon(int level)
@@ -44,15 +43,15 @@ public class DungeonScene : Scene
 
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
-			GameManager.Instance.SelectOption(0, 0);
+			SpartaRPG.SelectOption(0, 0);
 			StartScene();
 			return;
 		}
 
-		int minusHp = Math.Max(3, rand.Next(20 - pd.armor, 36 - pd.armor)); 
+		int minusHp = Math.Max(3, rand.Next(20 - pd.armor, 36 - pd.armor));
 		int rewardGold = 0;
 
-		if (pd.hp <= minusHp || ( pd.armor < levels[level] && rand.Next(0, 100) < 40))
+		if (pd.hp <= minusHp || (pd.armor < levels[level] && rand.Next(0, 100) < 40))
 		{
 			Console.WriteLine("[던전 클리어 실패..]");
 			Console.WriteLine($"{names[level]} 던전 클리어에 실패 하셨습니다...");
@@ -62,11 +61,11 @@ public class DungeonScene : Scene
 		}
 		else
 		{
-			Console.WriteLine("[던전 클리어]"); 
+			Console.WriteLine("[던전 클리어]");
 			Console.WriteLine($"축하합니다!!");
 			Console.WriteLine($"{names[level]} 던전을 클리어 하였습니다!");
 			int add = (rewards[level] * pd.attack / 100);
-			rewardGold = rewards[level] + rand.Next(add, add*2); 
+			rewardGold = rewards[level] + rand.Next(add, add * 2);
 		}
 
 		Console.WriteLine("");
@@ -84,12 +83,13 @@ public class DungeonScene : Scene
 		}
 
 		pd.hp = Math.Max(0, pd.hp - minusHp);
-		pd.gold = pd.gold + rewardGold; 
+		pd.gold = pd.gold + rewardGold;
 
 		Console.WriteLine();
 		Console.WriteLine("0. 나가기");
-		GameManager.Instance.SelectOption(0, 0);
+		SpartaRPG.SelectOption(0, 0);
 		StartScene();
-	    }
-
+	}
 }
+
+

@@ -50,18 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManager.cs" />
-    <Compile Include="DungeonScene.cs" />
-    <Compile Include="GameManager.cs" />
-    <Compile Include="InventoryScene.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="InventoryData.cs" />
-    <Compile Include="PlayerData.cs" />
-    <Compile Include="PlayerStatusScene.cs" />
+    <Compile Include="Scenes\DungeonScene.cs" />
+    <Compile Include="SpartaRPG.cs" />
+    <Compile Include="Scenes\InventoryScene.cs" />
+    <Compile Include="Datas\Item.cs" />
+    <Compile Include="Datas\InventoryData.cs" />
+    <Compile Include="Datas\PlayerData.cs" />
+    <Compile Include="Scenes\PlayerStatusScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestScene.cs" />
-    <Compile Include="Scene.cs" />
-    <Compile Include="StoreScene.cs" />
+    <Compile Include="Scenes\RestScene.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\StoreScene.cs" />
     <Compile Include="Town.cs" />
   </ItemGroup>
   <ItemGroup>

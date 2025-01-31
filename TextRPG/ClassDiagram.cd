@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="GameManager">
+  <Class Name="SpartaRPG">
     <Position X="17.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAACAAIAAAAAAAAACAAAIAAAQAAAAAAAAAE=</HashCode>
-      <FileName>GameManager.cs</FileName>
+      <HashCode>AAAAAAAAAIACAAIAAAAAAAAACAAAIAAAAAAAAAAAAAE=</HashCode>
+      <FileName>SpartaRPG.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TextRPG.Scene">
+  <Class Name="Game.Scene.Scene">
     <Position X="17.5" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAABAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
@@ -18,31 +18,31 @@
     <Position X="13" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgIAAAAAAAABAAAAAAAAAAAEAAAAAAAAIAAAAAIA=</HashCode>
-      <FileName>DungeonScene.cs</FileName>
+      <FileName>Scenes\DungeonScene.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TextRPG.InventoryScene">
+  <Class Name="Game.Scene.InventoryScene">
     <Position X="15.25" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAEAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>InventoryScene.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TextRPG.PlayerStatusScene">
+  <Class Name="Game.Scene.PlayerStatusScene">
     <Position X="17.5" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PlayerStatusScene.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TextRPG.RestScene">
+  <Class Name="Game.Scene.RestScene">
     <Position X="19.75" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAABAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RestScene.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TextRPG.StoreScene">
+  <Class Name="Game.Scene.StoreScene">
     <Position X="22" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAiAAAAAABAAAAAAAAAAIAAAABAAAAQAAQAAAA=</HashCode>
@@ -52,22 +52,15 @@
   <Class Name="DataManager">
     <Position X="12" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAQEAAUAAAAAAgAAAAQAAAABAACQAAAAQAAAAA=</HashCode>
+      <HashCode>EAAAAAAQAAAQAAAAAAgAAAAQCAAABAACQAAAAQAAABA=</HashCode>
       <FileName>DataManager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TextRPG.Town">
-    <Position X="17.5" Y="10.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAQABAAAIAAAAAAAAAABACAAEAAAAAA=</HashCode>
-      <FileName>Town.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="InventoryData">
     <Position X="9" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAEAAAABAAACAAAAAAAACAAEAAAEAgAIAAQAAAA=</HashCode>
-      <FileName>InventoryData.cs</FileName>
+      <FileName>Datas\InventoryData.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="weapon" />
@@ -77,7 +70,7 @@
     <Position X="6.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAIAAAAAAAAAAFACAAAAAAAAAAAgQ=</HashCode>
-      <FileName>Item.cs</FileName>
+      <FileName>Datas\Item.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="ItemType" />
@@ -86,43 +79,43 @@
   <Class Name="Weapon">
     <Position X="4" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
-      <FileName>Item.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Datas\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Equipment">
     <Position X="4" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
-      <FileName>Item.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Datas\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PlayerData">
-    <Position X="8" Y="12" Width="1.5" />
+  <Class Name="Town">
+    <Position X="17.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAQAAAAAAAAAAAAAAAAIACAEEAACAABBQABAAIAA=</HashCode>
-      <FileName>PlayerData.cs</FileName>
+      <HashCode>AAAAAAAAIAAQAAQAAAAAIAAAAAAAAAABACABEAAAAAA=</HashCode>
+      <FileName>Town.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="PlayerJob">
     <Position X="9.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAABAACAAAAAABAAAAg=</HashCode>
-      <FileName>DataManager.cs</FileName>
+      <FileName>Datas\PlayerData.cs</FileName>
     </TypeIdentifier>
   </Struct>
-  <Enum Name="EJobType">
-    <Position X="4.5" Y="8" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAAAAACAA=</HashCode>
-      <FileName>DataManager.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
   <Enum Name="EItemType">
     <Position X="6.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Item.cs</FileName>
+      <FileName>Datas\Item.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EJobType">
+    <Position X="4.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAAAAACAA=</HashCode>
+      <FileName>Datas\PlayerData.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="맑은 고딕" Size="9" />

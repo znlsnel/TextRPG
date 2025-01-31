@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class PlayerData
+
+public class PlayerData 
 {
 	public string name;
 	public int level;
@@ -49,3 +50,29 @@ public class PlayerData
 	}
 }
 
+public enum EJobType 
+{
+	WARRIOR,
+	ROGUE,
+	MAGE,
+	NONE,
+}
+
+public struct PlayerJob
+{
+	public EJobType job;
+	public string jobName;
+	public int attack;
+	public int armor;
+	public int health;
+
+	public PlayerJob(EJobType job, int att, int arm, int hp)
+	{
+		this.job = job;
+		jobName = DataManager.Instance.jobNames[job];
+		this.attack = att;
+		this.armor = arm;
+		this.health = hp;
+	}
+
+}

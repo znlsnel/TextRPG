@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using TextRPG;
+
 using Newtonsoft.Json;
 using System.Linq.Expressions;
 using System.Linq;
 
-public class GameManager
+
+public class SpartaRPG
 {
-	DataManager dataManager = new DataManager();
-	public static GameManager Instance;
+	DataManager dataManager = new DataManager(); 
 	Town town = new Town(); 
-	 
-	public GameManager()
-	{
-		Instance = this;
-	}
 
 	public void GameStart()
 	{
@@ -23,9 +18,9 @@ public class GameManager
 		Console.WriteLine("스파르타 RPG에 접속하신 것을 환영합니다.");
 
 		Console.WriteLine();
-		Console.WriteLine("1. 캐릭터 만들기");
-		Console.WriteLine("2. 저장 데이터 불러오기");
-		Console.WriteLine("0. 게임 종료");
+		Console.WriteLine("1. 새로시작");
+		Console.WriteLine("2. 불러오기");
+		Console.WriteLine("0. 게임 종료"); 
 
 		
 		int value = SelectOption(0, 2);
@@ -38,8 +33,8 @@ public class GameManager
 
 	void CreateCharacter()
 	{
-		Console.WriteLine();
-		Console.WriteLine("원하시는 직업을 선택해 주세요 : ");
+		Console.Clear();
+		Console.WriteLine("원하시는 직업을 선택해 주세요");
 
 		DataManager.Instance.PrintJobInfos();
 
@@ -49,7 +44,7 @@ public class GameManager
 		Console.Write("캐릭터의 이름을 입력해주세요 : ");
 		string name = Console.ReadLine();
 		DataManager.Instance.CreateCharacter(name, idx);
-
+		 
 		for (int i = 0; i < 10; i++)
 		{
 			Thread.Sleep(100);
@@ -73,29 +68,29 @@ public class GameManager
 		Console.WriteLine("기존에 플레이 했던 캐릭터의 이름을 입력해주세요");
 
 		string name = Console.ReadLine();
+			Console.Clear();
 		if (DataManager.Instance.LoadData(name))
 		{
-			Console.WriteLine("\n데이터를 불러오는데 성공했습니다!");
+			Console.WriteLine("데이터를 불러오는데 성공했습니다!");
 
 			Console.WriteLine("\n1. 게임시작");
 			Console.WriteLine("0. 나가기");
 			if (SelectOption(0, 1) == 0)
-				GameStart();
+				GameStart(); 
 			 
 			else
 				town.EnterTown();
 		}
 		else
 		{
-			Console.WriteLine("\n데이터를 찾을 수 없습니다.");
-
+			Console.WriteLine("데이터를 찾을 수 없습니다.");
 			Console.WriteLine("\n0. 돌아가기");
 			SelectOption(0, 0); 
 			GameStart();
 		}
 	} 
 
-	public int SelectOption(int a, int b) 
+	public static int SelectOption(int a, int b) 
 	{
 		Console.WriteLine("\n원하시는 행동을 입력해주세요");
 		Console.Write(">> ");
@@ -108,7 +103,7 @@ public class GameManager
 		{
 			str = Console.ReadLine();
 			isNumeric = str.All(char.IsDigit);
-			ret = isNumeric ? int.Parse(str) : a - 1 ;
+			ret = isNumeric && str.Length > 0? int.Parse(str) : a - 1 ;
 
 			if (isNumeric && ret >= a && ret <= b) 
 				break;

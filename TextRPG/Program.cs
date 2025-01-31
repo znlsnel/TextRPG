@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-	
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			GameManager game = new GameManager();
-
+			SpartaRPG game = new SpartaRPG();
 			game.GameStart();
 		}
 	}
-}
+} 
