@@ -21,7 +21,7 @@ namespace TextRPG
 			Console.WriteLine("1. 휴식하기");
 			Console.WriteLine("0. 나가기");
 
-			int value = GameManager.Instance.GetPlayerInputInt(0, 1);
+			int value = GameManager.Instance.SelectOption(0, 1);
 			if (value == 1)
 			{
 				TakeRest();
@@ -47,7 +47,7 @@ namespace TextRPG
 
 			Console.WriteLine("\n0. 나가기");
 
-			int value = GameManager.Instance.GetPlayerInputInt(0, 0);
+			int value = GameManager.Instance.SelectOption(0, 0);
 			
 		}
 	}

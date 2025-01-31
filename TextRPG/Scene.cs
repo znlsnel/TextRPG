@@ -11,6 +11,7 @@ namespace TextRPG
 		string sceneName;
 
 		public Scene(string name) => sceneName = name;
+
 		public string GetName() => sceneName;
 
 		public abstract void StartScene();

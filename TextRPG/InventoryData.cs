@@ -9,32 +9,46 @@ using System.Threading.Tasks;
 	{
 		public HashSet<string> ownedItems = new HashSet<string>();
 
-		public Item weaponItem;
-		public Item equipmentItem;
+		Item weaponItem;
+		Item equipmentItem;
 
-		public bool EquipItem(Item item)
+		public Item weapon
 		{
-			if (item.type == EItemType.WEAPON)
+			get => weaponItem;
+			set
 			{
-				if (weaponItem == item)
-				{
-					weaponItem = null;
-					return false;
-				}
+				if (weaponItem == value)
+				weaponItem = null;
+				else weaponItem = value;
+			}
+		}
 
-				weaponItem = item;
-				return true;
+		public Item equipment 
+		{
+			get => equipmentItem;
+			set
+			{
+				if (equipmentItem == value)
+					equipmentItem = null;
+				else equipmentItem = value;
+			}
+		}
+
+	public bool EquipItem(Item item)
+		{
+			if (item.ItemType == EItemType.WEAPON)
+			{
+				bool ret = weapon != item;
+
+				weapon = item;
+				return ret;
 			}
 			else
 			{
-				if (equipmentItem == item)
-				{
-					equipmentItem = null;
-					return false;
-				}
+				bool ret = equipment != item;
 
-				equipmentItem = item;
-				return true;
+				equipment = item; 
+				return ret;
 
 			}
 		}
@@ -42,15 +56,15 @@ using System.Threading.Tasks;
 		public void RemoveItem(Item item)
 		{
 			ownedItems.Remove(item.name);
-			if (weaponItem == item)
-				weaponItem = null;
+			if (weapon == item)
+				weapon = null;
 
 			else if (equipmentItem == item)
 				equipmentItem = null;
 		}
 		public bool IsEquippedItem(Item item)
 		{
-			return weaponItem == item || equipmentItem == item;
+			return weapon == item || equipmentItem == item;
 		}
 
 		public List<Item> GetPlayerItem()

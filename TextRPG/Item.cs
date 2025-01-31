@@ -15,7 +15,7 @@ public enum EItemType
 
 public abstract class Item
 {
-	public EItemType type;
+	EItemType type;
 	public string name;
 	public string description;
 
@@ -30,6 +30,12 @@ public abstract class Item
 		price = p;
 	}
 
+	public EItemType ItemType
+	{
+		get => type;
+		set => type = value;
+	}
+
 	public abstract string GetItemInfo();
 }
 
@@ -37,7 +43,7 @@ public class Weapon : Item
 {
 	public Weapon(string n, int v, string d, int p) : base(n, v, d, p)
 	{
-		type = EItemType.WEAPON;
+		ItemType = EItemType.WEAPON;
 	}
 
 	public override string GetItemInfo()
@@ -63,7 +69,7 @@ public class Equipment : Item
 {
 	public Equipment(string n, int v, string d, int p) : base(n, v, d, p)
 	{
-		type = EItemType.EQUIPMENT;
+		ItemType = EItemType.EQUIPMENT;
 
 	}
 

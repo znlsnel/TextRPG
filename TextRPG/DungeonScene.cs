@@ -26,7 +26,7 @@ public class DungeonScene : Scene
 		Console.WriteLine($"3. {names[2]} 던전 \t 방어력 {levels[2]} 이상 권장");
 		Console.WriteLine("0. 나가기");
 
-		int value = GameManager.Instance.GetPlayerInputInt(0, 3);
+		int value = GameManager.Instance.SelectOption(0, 3);
 
 		if (value != 0)
 			EnterDungeon(value-1);
@@ -44,7 +44,7 @@ public class DungeonScene : Scene
 
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
-			GameManager.Instance.GetPlayerInputInt(0, 0);
+			GameManager.Instance.SelectOption(0, 0);
 			StartScene();
 			return;
 		}
@@ -88,7 +88,7 @@ public class DungeonScene : Scene
 
 		Console.WriteLine();
 		Console.WriteLine("0. 나가기");
-		GameManager.Instance.GetPlayerInputInt(0, 0);
+		GameManager.Instance.SelectOption(0, 0);
 		StartScene();
 	    }
 

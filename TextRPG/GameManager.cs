@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Threading;
 using TextRPG;
 using Newtonsoft.Json;
+using System.Linq.Expressions;
+using System.Linq;
 
 public class GameManager
 {
+	DataManager dataManager = new DataManager();
 	public static GameManager Instance;
-	TownScene town = new TownScene(); 
-
+	Town town = new Town(); 
+	 
 	public GameManager()
 	{
 		Instance = this;
 	}
-
 
 	public void GameStart()
 	{
@@ -26,7 +28,7 @@ public class GameManager
 		Console.WriteLine("0. 게임 종료");
 
 		
-		int value = GetPlayerInputInt(0, 2);
+		int value = SelectOption(0, 2);
 
 		if (value == 1)
 			CreateCharacter();
@@ -41,12 +43,12 @@ public class GameManager
 
 		DataManager.Instance.PrintJobInfos();
 
-		int idx = GetPlayerInputInt(1, 3);
+		int idx = SelectOption(1, 3);
 
 		Console.WriteLine();
 		Console.Write("캐릭터의 이름을 입력해주세요 : ");
 		string name = Console.ReadLine();
-		DataManager.Instance.CreateNewCharacter(name, idx);
+		DataManager.Instance.CreateCharacter(name, idx);
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -62,7 +64,7 @@ public class GameManager
 			Thread.Sleep(100);
 			Console.Write(" .");
 		}
-		town.GameOn();
+		town.EnterTown();
 	}
 	 
 	void LoadCharacter()
@@ -77,34 +79,42 @@ public class GameManager
 
 			Console.WriteLine("\n1. 게임시작");
 			Console.WriteLine("0. 나가기");
-			if (GetPlayerInputInt(0, 1) == 0)
+			if (SelectOption(0, 1) == 0)
 				GameStart();
 			 
 			else
-				town.GameOn();
+				town.EnterTown();
 		}
 		else
 		{
 			Console.WriteLine("\n데이터를 찾을 수 없습니다.");
 
 			Console.WriteLine("\n0. 돌아가기");
-			GetPlayerInputInt(0, 0);
+			SelectOption(0, 0); 
 			GameStart();
 		}
-	}
+	} 
 
-	public int GetPlayerInputInt(int a, int b)
+	public int SelectOption(int a, int b) 
 	{
-		Console.WriteLine();
-		Console.WriteLine("원하시는 행동을 입력해주세요");
+		Console.WriteLine("\n원하시는 행동을 입력해주세요");
 		Console.Write(">> ");
 
-		int ret = int.Parse(Console.ReadLine());
-		while (ret < a || ret > b)
+		string str;
+		bool isNumeric;
+		int ret;
+
+		while (true)
 		{
-			Console.WriteLine("\n잘못된 입력입니다."); 
+			str = Console.ReadLine();
+			isNumeric = str.All(char.IsDigit);
+			ret = isNumeric ? int.Parse(str) : a - 1 ;
+
+			if (isNumeric && ret >= a && ret <= b) 
+				break;
+
+			Console.WriteLine("\n잘못된 입력입니다. 다시 입력해주세요.");
 			Console.Write(">> ");
-			ret = int.Parse(Console.ReadLine());
 		}
 
 		return ret;

@@ -19,7 +19,7 @@ namespace TextRPG
 			Console.WriteLine("1. 장착 관리");
 			Console.WriteLine("0. 나가기");
 
-			int value = GameManager.Instance.GetPlayerInputInt(0, 1);
+			int value = GameManager.Instance.SelectOption(0, 1);
 
 			if (value == 0)
 				return;
@@ -49,7 +49,7 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기"); 
 
-			int idx = GameManager.Instance.GetPlayerInputInt(0, cnt);
+			int idx = GameManager.Instance.SelectOption(0, cnt);
 			if (idx == 0) 
 				return;
 
@@ -71,7 +71,7 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("0. 돌아가기");
 
-			int value = GameManager.Instance.GetPlayerInputInt(0, 0);
+			int value = GameManager.Instance.SelectOption(0, 0);
 			if (value == 0)
 				ShowInventory();
 		}

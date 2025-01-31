@@ -23,8 +23,8 @@ namespace TextRPG
 			PlayerData pd = DataManager.Instance.playerData;
 			Console.WriteLine($"Lv. {pd.level}");
 
-			Item weapon = DataManager.Instance.inventory.weaponItem;
-			Item equipMent = DataManager.Instance.inventory.equipmentItem;
+			Item weapon = DataManager.Instance.inventory.weapon;
+			Item equipMent = DataManager.Instance.inventory.equipment;
 
 			int addAttack = weapon != null ? weapon.value : 0;
 			int addArmor = equipMent != null ? equipMent.value : 0;
@@ -39,7 +39,7 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
 
-			int value = GameManager.Instance.GetPlayerInputInt(0, 0);
+			int value = GameManager.Instance.SelectOption(0, 0);
 			if (value == 0)
 				return;
 

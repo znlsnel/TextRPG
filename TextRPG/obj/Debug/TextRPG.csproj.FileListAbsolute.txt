@@ -8,3 +8,5 @@ D:\PROJECTS\TextRPG\TextRPG\obj\Debug\TextRPG.pdb
 D:\PROJECTS\TextRPG\TextRPG\bin\Debug\Newtonsoft.Json.dll
 D:\PROJECTS\TextRPG\TextRPG\bin\Debug\Newtonsoft.Json.xml
 D:\PROJECTS\TextRPG\TextRPG\obj\Debug\TextRPG.csproj.CopyComplete
+D:\PROJECTS\TextRPG\TextRPG\bin\Debug\Aspose.Diagram.dll
+D:\PROJECTS\TextRPG\TextRPG\bin\Debug\Aspose.Diagram.xml

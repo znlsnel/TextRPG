@@ -44,7 +44,7 @@ namespace TextRPG
 		    Console.WriteLine("2. 아이템 판매");
 		    Console.WriteLine("0. 나가기");
 
-			int value = GameManager.Instance.GetPlayerInputInt(0, 2);
+			int value = GameManager.Instance.SelectOption(0, 2);
 
 			if (value == 1)
 				OpenItemInfo();
@@ -84,7 +84,7 @@ namespace TextRPG
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
 
-			int value = GameManager.Instance.GetPlayerInputInt(0, cnt);
+			int value = GameManager.Instance.SelectOption(0, cnt);
 			if (value == 0)
 				return;
 
@@ -115,7 +115,7 @@ namespace TextRPG
 			
 			Console.WriteLine();
 			Console.WriteLine("0. 돌아가기");
-			int value = GameManager.Instance.GetPlayerInputInt(0, 0);
+			int value = GameManager.Instance.SelectOption(0, 0);
 
 			if (value == 0)
 				OpenItemInfo();
@@ -146,7 +146,7 @@ namespace TextRPG
 
 			Console.WriteLine("\n0. 나가기");
 
-			int idx = GameManager.Instance.GetPlayerInputInt(0, cnt);
+			int idx = GameManager.Instance.SelectOption(0, cnt);
 
 			if (idx-- == 0)
 				return;
@@ -167,7 +167,7 @@ namespace TextRPG
 			Console.WriteLine($"{item.name}을 판매했습니다! ( + {price} G )");
 
 			Console.WriteLine("\n0. 돌아가기");
-			int idx = GameManager.Instance.GetPlayerInputInt(0, 0);
+			int idx = GameManager.Instance.SelectOption(0, 0);
 			OpenSellItemInfo();
 		}
 	}
