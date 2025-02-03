@@ -73,11 +73,11 @@ public class DungeonScene : Scene
 			return;
 		}
 
-		int damage = dungeon.level - pd.armor;
+		int damage = dungeon.level - pd.defense;
 		int minusHp = Math.Max(rand.Next(0, 4), rand.Next(20, 36) + damage); 
 		int rewardGold = 0;
 
-		if (pd.hp <= minusHp || (pd.armor < dungeon.level && rand.Next(0, 100) < 40))
+		if (pd.hp <= minusHp || (pd.defense < dungeon.level && rand.Next(0, 100) < 40))
 		{
 			Console.WriteLine("[던전 클리어 실패..]");
 			Console.WriteLine($"{dungeon.name} 던전 클리어에 실패 하셨습니다...");
@@ -104,7 +104,7 @@ public class DungeonScene : Scene
 			Console.WriteLine($"Gold {pd.gold} -> {pd.gold + rewardGold}");
 			Console.WriteLine($"Level {pd.level} -> {pd.level + 1}");
 			pd.level++;
-			pd.armor++;
+			pd.defense++;
 			pd.attack++; 
 		}
 

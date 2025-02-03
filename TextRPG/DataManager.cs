@@ -11,6 +11,11 @@ using System.Security.Policy;
 public class DataManager
 {
 	public static DataManager Instance;
+
+	public InventoryData inventory = new InventoryData();
+	public PlayerData playerData;
+
+	List<PlayerClass> playerClasses = new List<PlayerClass>();
 	ItemManager itemManager = new ItemManager();
 
 	public Dictionary<string, Item> items => itemManager.items;
@@ -23,11 +28,6 @@ public class DataManager
 		{ EClassType.PALADIN, "성기사" },
 	};
 
-	public PlayerData playerData;
-	public InventoryData inventory = new InventoryData();
-	public string GetSavePath(string name) => $"textRPG_{name}.json";
-	List<PlayerClass> playerClasses = new List<PlayerClass>();
-	 
 	public DataManager()
 	{
 		if (Instance == null)
@@ -40,17 +40,13 @@ public class DataManager
 		playerClasses.Add(new PlayerClass(EClassType.PALADIN, 7, 15, 150));
 	}
 
-	public bool DoesIdExists(string name)
-	{
-		return File.Exists(GetSavePath(name));
-	}
+	
 	public void CreateCharacter(string name, int classId)
 	{
 		int idx = classId - 1;
 		playerData = new PlayerData(name, 1, playerClasses[idx].classType, playerClasses[idx].attack,
 											playerClasses[idx].armor, playerClasses[idx].health, 100000);
 	}
-
 	public int PrintClassInfos()
 	{
 		for (int i = 0; i < playerClasses.Count; i++)
@@ -61,15 +57,17 @@ public class DataManager
 
 		return playerClasses.Count;
 	}
-
+	
+	public string GetSavePath(string name) => $"textRPG_{name}.json";
+	public bool DoesIdExists(string name) => File.Exists(GetSavePath(name));
 	public void SaveData()
 	{
 		playerData.myItems = new List<string>();
-
 		foreach (var item in inventory.ownedItems)
 			playerData.myItems.Add(item);
+
 		playerData.weapon = inventory.weapon != null ? inventory.weapon.name : "";
-		playerData.equipment = inventory.equipment != null ? inventory.equipment.name : "";
+		playerData.armor = inventory.armor != null ? inventory.armor.name : "";
 
 		string json = JsonConvert.SerializeObject(playerData);
 		File.WriteAllText(GetSavePath(playerData.name), json);
@@ -88,8 +86,9 @@ public class DataManager
 
 			if (items.ContainsKey(playerData.weapon))
 				inventory.weapon = items[playerData.weapon];
-			if (items.ContainsKey(playerData.equipment)) 
-				inventory.equipment = items[playerData.equipment];
+
+			if (items.ContainsKey(playerData.armor)) 
+				inventory.armor = items[playerData.armor];
 
 			return true;
 		}

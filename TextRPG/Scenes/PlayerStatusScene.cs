@@ -22,10 +22,10 @@ public class PlayerStatusScene : Scene
 		Console.WriteLine($"Lv. {pd.level}");
 
 		Item weapon = DataManager.Instance.inventory.weapon;
-		Item equipMent = DataManager.Instance.inventory.equipment;
+		Item armor = DataManager.Instance.inventory.armor;
 
 		int addAttack = weapon != null ? weapon.value : 0;
-		int addArmor = equipMent != null ? equipMent.value : 0;
+		int addArmor = armor != null ? armor.value : 0;
 
 		string jobName = DataManager.Instance.classNames[pd.classType]; 
 		Console.WriteLine($"{pd.name} ( {jobName} )");

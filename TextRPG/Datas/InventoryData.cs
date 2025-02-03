@@ -10,7 +10,7 @@ public class InventoryData
 	public HashSet<string> ownedItems = new HashSet<string>();
 
 	Item _weaponItem;
-	Item _equipmentItem;
+	Item _armorItem;
 
 	public Item weapon
 	{
@@ -22,14 +22,14 @@ public class InventoryData
 			else _weaponItem = value;
 		}
 	}
-	public Item equipment 
+	public Item armor 
 	{
-		get => _equipmentItem;
+		get => _armorItem;
 		set
 		{
-			if (_equipmentItem == value)
-				_equipmentItem = null;
-			else _equipmentItem = value;
+			if (_armorItem == value)
+				_armorItem = null;
+			else _armorItem = value;
 		}
 	}
 
@@ -44,9 +44,9 @@ public class InventoryData
 		}
 		else
 		{
-			bool ret = equipment != item;
+			bool ret = armor != item;
 
-			equipment = item; 
+			armor = item; 
 			return ret;
 
 		}
@@ -58,12 +58,12 @@ public class InventoryData
 		if (weapon == item)
 			weapon = null;
 
-		else if (_equipmentItem == item)
-			_equipmentItem = null;
+		else if (_armorItem == item)
+			_armorItem = null;
 	}
 	public bool IsEquippedItem(Item item)
 	{
-		return weapon == item || _equipmentItem == item;
+		return weapon == item || _armorItem == item;
 	}
 
 	public List<Item> GetPlayerItem()

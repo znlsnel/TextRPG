@@ -13,22 +13,22 @@ public class PlayerData
 	public int level;
 	public EClassType classType;
 	public int attack;
-	public int armor;
+	public int defense;
 	public int maxHp;
 	public int hp;
 	public int gold;
 
 	public List<string> myItems = new List<string>();
 	public string weapon = "";
-	public string equipment = "";
+	public string armor = "";
 
-	public PlayerData(string name, int level, EClassType type, int attack, int armor, int maxHp, int gold)
+	public PlayerData(string name, int level, EClassType type, int attack, int d, int maxHp, int gold)
 	{
 		this.name = name;
 		this.level = level;
 		this.classType = type;
 		this.attack = attack;
-		this.armor = armor;
+		this.defense = d;
 		this.maxHp = maxHp;
 		this.hp = maxHp;
 		this.gold = gold;
@@ -44,11 +44,11 @@ public class PlayerData
 
 	public int GetArmor()
 	{
-		Item item = DataManager.Instance.inventory.equipment;
+		Item item = DataManager.Instance.inventory.armor;
 		if (item != null)
-			return armor + item.value;
+			return defense + item.value;
 
-		return armor;
+		return defense;
 	}
 }
 

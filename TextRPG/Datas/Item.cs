@@ -52,6 +52,7 @@ public abstract class Item
 	{
 		return text.Sum(c => c >= 0xAC00 && c <= 0xD7A3 ? 2 : 1); // 한글(가~힣)은 2칸, 나머지는 1칸
 	}
+
 	static string PadRightWithFullWidth(string text, int totalWidth)
 	{
 		int currentWidth = GetTextWidth(text);
@@ -62,14 +63,13 @@ public abstract class Item
 
 public class Weapon : Item
 {
-	public Weapon(string n, int v, string d, int p, EClassType equip = EClassType.NONE) : base(n, v, d, p, equip){}
+	public Weapon(string n, int v, string d, int p, EClassType type = EClassType.NONE) : base(n, v, d, p, type) {}
 	public override string GetStatType() => "공격력";
-
 }
 
-public class Equipment : Item
+public class Armor : Item
 {
-	public Equipment(string n, int v, string d, int p, EClassType equip = EClassType.NONE) : base(n, v, d, p, equip){}
+	public Armor(string n, int v, string d, int p, EClassType type = EClassType.NONE) : base(n, v, d, p, type) {}
 	public override string GetStatType() => "방어력";
-
 }
+
