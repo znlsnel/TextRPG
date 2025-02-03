@@ -34,6 +34,7 @@ public class PlayerData
 		this.gold = gold;
 	}
 
+	// 공격력을 반환하는 함수 무기를 장착중이라면 무기 공격력까지 포함
 	public int GetAttack()
 	{
 		Item item = DataManager.Instance.inventory.weapon;

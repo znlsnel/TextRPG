@@ -18,10 +18,12 @@ public class Town
 
 	public Town()
 	{
+		// 각 Scene을 배열에 담고 순회하며 진입할 수 있도록 설계
 		_scenes = new List<Scene>() { 
 			_statusScene, 
 			_inventoryScene,
-			_storeScene, _restScene, 
+			_storeScene, 
+			_restScene, 
 			_dungeon, 
 			_save
 		};
@@ -30,6 +32,7 @@ public class Town
 
 	public void EnterTown()
 	{
+		// 반복문을 통해 마을을 벗어날 수 없게 설계
 		while (true)
 		{
 			Console.Clear();
@@ -42,6 +45,7 @@ public class Town
 
 			Console.WriteLine("0. 나가기");
 
+			// 0 입력시 반복문 벗어나며 종료
 			int value = SpartaRPG.SelectOption(0, _scenes.Count + 1);
 			if (value == 0)
 				return;

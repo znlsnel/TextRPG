@@ -43,6 +43,8 @@ public class SpartaRPG
 		Console.WriteLine();
 		Console.Write("캐릭터의 이름을 입력해주세요 : ");
 		string name = Console.ReadLine();
+
+		// 이미 생성된 아이디라면 계속 입력 받도록 설계
 		while (DataManager.Instance.DoesIdExists(name))
 		{
 			Console.Write("\n이미 존재하는 이름입니다 다시 입력해주세요 : ");
@@ -50,15 +52,16 @@ public class SpartaRPG
 		}
 		DataManager.Instance.CreateCharacter(name, idx);
 		 
+		// 10초간 대기하는 코드
 		for (int i = 0; i < 10; i++)
 		{
 			Thread.Sleep(100);
 			Console.Write(" .");
 		}
-		Console.WriteLine();
-		Console.WriteLine();
 
-		Console.WriteLine("캐릭터 생성이 완료 되었습니다. \n게임에 접속합니다");
+		Console.WriteLine("\n\n캐릭터 생성이 완료 되었습니다. \n게임에 접속합니다");
+
+		// 10초간 대기하는 코드
 		for (int i = 0; i < 10; i++)
 		{
 			Thread.Sleep(100);
@@ -106,13 +109,15 @@ public class SpartaRPG
 
 		while (true)
 		{
-			str = Console.ReadLine();
-			isNumeric = str.All(char.IsDigit);
-			ret = isNumeric && str.Length > 0? int.Parse(str) : a - 1 ;
+			str = Console.ReadLine(); 
+			isNumeric = str.All(char.IsDigit); // 모든 문자가 숫자인지 체크
+			ret = isNumeric && str.Length > 0? int.Parse(str) : a - 1 ; // 인자로 받은 범위 안의 수인지 체크
 
+			// 조건에 부합하는 수를 입력받은 경우 반복문 종료
 			if (isNumeric && ret >= a && ret <= b) 
 				break;
 
+			// 조건에 부합하지 않는다면 반복하여 입력 받기
 			Console.WriteLine("\n잘못된 입력입니다. 다시 입력해주세요.");
 			Console.Write(">> ");
 		}

@@ -26,6 +26,7 @@ public class DungeonScene : Scene
 	public DungeonScene(string name) : base(name) { }
 	Random rand = new Random();
 
+	// 던전 난이도를 담은 배열
 	List<DungeonInfo> dungeons = new List<DungeonInfo>() 
 	{
 		new DungeonInfo("쉬움", 5, 1000, 1),
@@ -60,6 +61,7 @@ public class DungeonScene : Scene
 		Console.Clear();
 		PlayerData pd = DataManager.Instance.playerData;
 
+		// 체력이 0일 때는 바로 실패 처리
 		if (pd.hp == 0)
 		{
 			Console.WriteLine("[던전 실패..]");
@@ -76,6 +78,7 @@ public class DungeonScene : Scene
 		int minusHp = Math.Max(rand.Next(0, 4), rand.Next(20, 36) + damage); 
 		int rewardGold = 0;
 
+		// 던전 클리어 실패한 경우
 		if (pd.hp <= minusHp || (pd.defense < dungeon.armor && rand.Next(0, 100) < 40))
 		{
 			Console.WriteLine("[던전 클리어 실패..]");
@@ -84,7 +87,7 @@ public class DungeonScene : Scene
 			if (pd.hp > minusHp)
 				minusHp = pd.maxHp / 2;
 		}
-		else
+		else // 던전 클리어 성공
 		{
 			Console.WriteLine("[던전 클리어]");
 			Console.WriteLine($"축하합니다!!");
@@ -93,11 +96,8 @@ public class DungeonScene : Scene
 			rewardGold = dungeon.reward + rand.Next(add, add * 2);
 		}
 
-		Console.WriteLine("");
-		Console.WriteLine("[탐험 결과]");
-
-		Console.WriteLine();
-		Console.WriteLine($"체력 {pd.hp} -> {Math.Max(0, pd.hp - minusHp)}");
+		Console.WriteLine("\n[탐험 결과]");
+		Console.WriteLine($"\n체력 {pd.hp} -> {Math.Max(0, pd.hp - minusHp)}");
 		if (rewardGold > 0)
 		{
 			Console.WriteLine($"Gold {pd.gold} -> {pd.gold + rewardGold}");
@@ -110,8 +110,7 @@ public class DungeonScene : Scene
 		pd.hp = Math.Max(0, pd.hp - minusHp);
 		pd.gold = pd.gold + rewardGold;
 
-		Console.WriteLine();
-		Console.WriteLine("0. 나가기");
+		Console.WriteLine("\n0. 나가기");
 		SpartaRPG.SelectOption(0, 0);
 		EnterScene();
 	}

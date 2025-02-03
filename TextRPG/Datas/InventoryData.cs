@@ -18,8 +18,9 @@ public class InventoryData
 		set
 		{
 			if (_weaponItem == value)
-			_weaponItem = null;
-			else _weaponItem = value;
+				_weaponItem = null;
+			else 
+				_weaponItem = value;
 		}
 	}
 	public Item armor 
@@ -37,23 +38,21 @@ public class InventoryData
 	{
 		if (item is Weapon)
 		{
-			bool ret = weapon != item;
-
+			// 프로퍼티를 통해 같은 Item이라면 null이 들어가도록 설계
 			weapon = item;
-			return ret;
+			return weapon != item;
 		}
 		else
 		{
-			bool ret = armor != item;
-
 			armor = item; 
-			return ret;
-
+			return armor != item;
 		}
 	}
 
 	public void RemoveItem(Item item)
 	{
+		// 소지한 아이템 목록에서 삭제 후
+		// 장착한 아이템이라면 장착 해제
 		ownedItems.Remove(item.name);
 		if (weapon == item)
 			weapon = null;
@@ -68,6 +67,7 @@ public class InventoryData
 
 	public List<Item> GetPlayerItem()
 	{
+		// HashSet으로 보관중인 아이템 정보를 List로 담아서 반환
 		List<Item> ret = new List<Item>();
 		foreach (var item in ownedItems)
 			ret.Add(DataManager.Instance.items[item]);

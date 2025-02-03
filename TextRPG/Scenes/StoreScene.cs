@@ -46,6 +46,9 @@ public class StoreScene : Scene
 		else if (value == 2)
 			OpenSellItemInfo();
 
+		// 0을 입력한게 아니라면 반복되도록 만듬
+		if (value != 0)
+			EnterScene();
 	}
 
 	public void OpenItemInfo()
@@ -77,11 +80,8 @@ public class StoreScene : Scene
 
 		int value = SpartaRPG.SelectOption(0, cnt);
 		if (value == 0)
-		{
-			EnterScene();
 			return;
-
-		}
+		
 
 		BuyItem(items[value - 1]); 
 		OpenItemInfo();
@@ -142,10 +142,7 @@ public class StoreScene : Scene
 		int idx = SpartaRPG.SelectOption(0, cnt);
 
 		if (idx-- == 0)
-		{
-			EnterScene();
 			return;
-		}
 
 		SellItem(items[idx]);
 		OpenSellItemInfo();

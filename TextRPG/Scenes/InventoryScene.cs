@@ -60,6 +60,7 @@ public class InventoryScene : Scene
 	{
 		Console.Clear();
 
+		// 직업에 맞지 않는다면 장착 실패 처리
 		if (item.CanEquip(DataManager.Instance.playerData.classType) == false)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;

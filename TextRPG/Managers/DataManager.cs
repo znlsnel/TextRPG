@@ -50,6 +50,7 @@ public class DataManager
 	}
 	public int PrintClassInfos()
 	{
+		// 클래스(게임직업) 정보를 띄우는 함수입니다.
 		for (int i = 0; i < playerClasses.Count; i++)
 		{
 			PlayerClass pj = playerClasses[i];
@@ -60,9 +61,12 @@ public class DataManager
 	}
 	
 	public string GetSavePath(string name) => $"textRPG_{name}.json";
+
+	// 해당 이름으로 저장된 파일이 있는지 체크
 	public bool DoesIdExists(string name) => File.Exists(GetSavePath(name));
 	public void SaveData()
 	{
+		// 게임 데이터를 저장, 아이템의 경우 아이템 이름을 저장합니다.
 		playerData.myItems = new List<string>();
 		foreach (var item in inventory.ownedItems)
 			playerData.myItems.Add(item);
@@ -85,6 +89,7 @@ public class DataManager
 			foreach (var item in playerData.myItems)
 				inventory.ownedItems.Add(item);
 
+			// 저장된 아이템 이름을 Dictionary를 통해 불러옵니다
 			if (items.ContainsKey(playerData.weapon))
 				inventory.weapon = items[playerData.weapon];
 

@@ -15,6 +15,7 @@ public class SaveScene : Scene
 		Console.Clear();
 		Console.Write("게임을 저장합니다 ");
 
+		// 0.5초 대기하는 코드
 		for (int i = 0; i < 10; i++)
 		{
 			Thread.Sleep(50);
