@@ -42,7 +42,7 @@
 <br><br>
 
 ## 플레이어 데이터
-   ![image](https://github.com/user-attachments/assets/8b7f6005-ca7f-40b4-b61e-5ecb0395d920)
+   ![image](https://github.com/user-attachments/assets/7ed8a104-6f70-43c8-8005-61a8febded77)
    - 플레이어의 데이터는 모든 곳에서 접근이 가능해야 하기에 데이터를 관리하는 DataManager 클래스를 생성하고 singleton 구조로 만들었습니다.<br>
      해당 클래스를 통해서 ItemManager, Inventory, PlayerData에 접근이 가능 하도록 만들었습니다. <br>
      또한 Player Class(직업) 정보도 DataManager에서 관리를 하도록 설계했습니다.
