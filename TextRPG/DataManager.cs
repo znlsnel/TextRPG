@@ -15,7 +15,14 @@ public class DataManager
 	public InventoryData inventory = new InventoryData();
 	public PlayerData playerData;
 
-	List<PlayerClass> playerClasses = new List<PlayerClass>();
+	List<PlayerClass> playerClasses = new List<PlayerClass>()
+	{
+		new PlayerClass(EClassType.WARRIOR, 10, 12, 100),
+		new PlayerClass(EClassType.ARCHER, 12, 10, 80),
+		new PlayerClass(EClassType.ROGUE, 15, 8, 70),
+		new PlayerClass(EClassType.MAGE, 20, 5, 60),
+		new PlayerClass(EClassType.PALADIN, 7, 15, 150),
+	};
 	ItemManager itemManager = new ItemManager();
 
 	public Dictionary<string, Item> items => itemManager.items;
@@ -32,12 +39,6 @@ public class DataManager
 	{
 		if (Instance == null)
 			Instance = this;
-
-		playerClasses.Add(new PlayerClass(EClassType.WARRIOR, 10, 12, 100));
-		playerClasses.Add(new PlayerClass(EClassType.ARCHER, 12, 10, 80));
-		playerClasses.Add(new PlayerClass(EClassType.ROGUE, 15, 8, 70));
-		playerClasses.Add(new PlayerClass(EClassType.MAGE, 20, 5, 60));
-		playerClasses.Add(new PlayerClass(EClassType.PALADIN, 7, 15, 150));
 	}
 
 	
