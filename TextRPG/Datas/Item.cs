@@ -34,7 +34,7 @@ public abstract class Item
 		string statType = GetStatType(); 
 
 		// 한글과 영어가 섞여도 맞춰진 칸 수로 정렬
-		int nameWidth = 20;
+		int nameWidth = 22;
 		int descriptionWidth = 50;
 
 		string formattedName = PadRightWithFullWidth(jobName + itemName, nameWidth);

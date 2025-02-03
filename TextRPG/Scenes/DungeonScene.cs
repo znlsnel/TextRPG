@@ -36,7 +36,7 @@ public class DungeonScene : Scene
 		new DungeonInfo("지옥의", 300, 100000),
 	};
 
-	public override void StartScene()
+	public override void EnterScene()
 	{
 		Console.Clear();
 		Console.WriteLine("[던전입장]");
@@ -69,7 +69,7 @@ public class DungeonScene : Scene
 			Console.WriteLine();
 			Console.WriteLine("0. 나가기");
 			SpartaRPG.SelectOption(0, 0);
-			StartScene();
+			EnterScene();
 			return;
 		}
 
@@ -114,7 +114,7 @@ public class DungeonScene : Scene
 		Console.WriteLine();
 		Console.WriteLine("0. 나가기");
 		SpartaRPG.SelectOption(0, 0);
-		StartScene();
+		EnterScene();
 	}
 }
 

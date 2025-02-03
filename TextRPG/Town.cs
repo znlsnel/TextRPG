@@ -12,16 +12,19 @@ public class Town
 	Scene _storeScene = new StoreScene("상점");
 	Scene _restScene = new RestScene("휴식 하기");
 	Scene _dungeon = new DungeonScene("던전입장");
+	Scene _save = new SaveScene("저장하기");
 
 	List<Scene> _scenes = new List<Scene>();
 
 	public Town()
 	{
-		_scenes.Add(_statusScene);
-		_scenes.Add(_inventoryScene);
-		_scenes.Add(_storeScene);
-		_scenes.Add(_restScene);
-		_scenes.Add(_dungeon);
+		_scenes = new List<Scene>() { 
+			_statusScene, 
+			_inventoryScene,
+			_storeScene, _restScene, 
+			_dungeon, 
+			_save
+		};
 	}
 
 
@@ -37,38 +40,16 @@ public class Town
 			for (int i = 0; i < _scenes.Count; i++)
 				Console.WriteLine($"{i + 1}. {_scenes[i].GetName()}");
 
-			Console.WriteLine($"{_scenes.Count + 1}. 저장하기");
 			Console.WriteLine("0. 나가기");
 
 			int value = SpartaRPG.SelectOption(0, _scenes.Count + 1);
 			if (value == 0)
 				return;
 
-			if (value == _scenes.Count + 1)
-			{
-				SaveGame();
-			}
-			else
-				_scenes[value - 1].StartScene();
+			else 
+				_scenes[value - 1].EnterScene();
 		}
 	}
 
-	void SaveGame()
-	{
-		DataManager.Instance.SaveData();
-		Console.Clear();
-		Console.Write("게임을 저장합니다 ");
-		 
-		for (int i = 0; i < 10; i++)
-		{
-			Thread.Sleep(50);
-			Console.Write(".  ");
-		}
-
-		Console.WriteLine();
-		Console.WriteLine("게임 저장에 성공했습니다.");
-		Console.WriteLine("\n0. 돌아가기");
-		SpartaRPG.SelectOption(0, 0);
-	}
 }
 

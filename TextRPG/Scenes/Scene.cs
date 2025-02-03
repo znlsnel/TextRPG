@@ -13,6 +13,6 @@ public abstract class Scene
 
 	public string GetName() => sceneName;
 
-	public abstract void StartScene();
+	public abstract void EnterScene();
 }
 

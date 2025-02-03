@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DataManager.cs" />
     <Compile Include="ItemManager.cs" />
+    <Compile Include="SaveScene.cs" />
     <Compile Include="Scenes\DungeonScene.cs" />
     <Compile Include="SpartaRPG.cs" />
     <Compile Include="Scenes\InventoryScene.cs" />

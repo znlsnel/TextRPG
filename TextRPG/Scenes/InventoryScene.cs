@@ -8,7 +8,7 @@ public class InventoryScene : Scene
 {
 	public InventoryScene(string name) : base(name){} 
 
-	public override void StartScene()
+	public override void EnterScene()
 	{
 		Console.Clear();
 		Console.WriteLine("[아이템 목록]");

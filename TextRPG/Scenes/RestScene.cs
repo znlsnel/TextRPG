@@ -9,7 +9,7 @@ public class RestScene : Scene
 	public RestScene(string name) : base(name){}
 	int price = 500;
 
-	public override void StartScene()
+	public override void EnterScene()
 	{
 		PlayerData pd = DataManager.Instance.playerData;
 		Console.Clear();

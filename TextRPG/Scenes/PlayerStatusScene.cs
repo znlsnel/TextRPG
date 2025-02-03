@@ -12,7 +12,7 @@ public class PlayerStatusScene : Scene
 	} 
 
 
-	public override void StartScene()
+	public override void EnterScene()
 	{ 
 		Console.Clear();
 		Console.WriteLine("캐릭터의 정보입니다."); 

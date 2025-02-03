@@ -86,8 +86,10 @@ public class DataManager
 			foreach (var item in playerData.myItems)
 				inventory.ownedItems.Add(item);
 
-			inventory.weapon = items[playerData.weapon];
-			inventory.equipment = items[playerData.equipment];
+			if (items.ContainsKey(playerData.weapon))
+				inventory.weapon = items[playerData.weapon];
+			if (items.ContainsKey(playerData.equipment)) 
+				inventory.equipment = items[playerData.equipment];
 
 			return true;
 		}

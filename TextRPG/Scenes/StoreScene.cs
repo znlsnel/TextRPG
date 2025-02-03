@@ -13,7 +13,7 @@ public class StoreScene : Scene
 		data = DataManager.Instance;
 	}
 	int sellPriceRate = 85;
-	public override void StartScene()
+	public override void EnterScene()
 	{
 		Console.Clear();
 		Console.WriteLine("[상점]");
@@ -78,7 +78,7 @@ public class StoreScene : Scene
 		int value = SpartaRPG.SelectOption(0, cnt);
 		if (value == 0)
 		{
-			StartScene();
+			EnterScene();
 			return;
 
 		}
@@ -143,7 +143,7 @@ public class StoreScene : Scene
 
 		if (idx-- == 0)
 		{
-			StartScene();
+			EnterScene();
 			return;
 		}
 
