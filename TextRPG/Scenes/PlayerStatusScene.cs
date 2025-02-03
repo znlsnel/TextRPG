@@ -27,7 +27,7 @@ public class PlayerStatusScene : Scene
 		int addAttack = weapon != null ? weapon.value : 0;
 		int addArmor = equipMent != null ? equipMent.value : 0;
 
-		string jobName = DataManager.Instance.jobNames[pd.job]; 
+		string jobName = DataManager.Instance.classNames[pd.classType]; 
 		Console.WriteLine($"{pd.name} ( {jobName} )");
 		Console.WriteLine($"공격력 : {pd.GetAttack()} (+{addAttack})"); 
 		Console.WriteLine($"방어력 : {pd.GetArmor()} (+{addArmor})");

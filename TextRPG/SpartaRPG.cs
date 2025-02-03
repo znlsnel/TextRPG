@@ -36,13 +36,18 @@ public class SpartaRPG
 		Console.Clear();
 		Console.WriteLine("원하시는 직업을 선택해 주세요");
 
-		DataManager.Instance.PrintJobInfos();
+		int classCnt = DataManager.Instance.PrintClassInfos();
 
-		int idx = SelectOption(1, 3);
-
+		int idx = SelectOption(1, classCnt);
+		 
 		Console.WriteLine();
 		Console.Write("캐릭터의 이름을 입력해주세요 : ");
 		string name = Console.ReadLine();
+		while (DataManager.Instance.DoesIdExists(name))
+		{
+			Console.Write("\n이미 존재하는 이름입니다 다시 입력해주세요 : ");
+			name = Console.ReadLine();
+		}
 		DataManager.Instance.CreateCharacter(name, idx);
 		 
 		for (int i = 0; i < 10; i++)

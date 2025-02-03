@@ -6,53 +6,32 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 
-public enum EItemType
-{
-	WEAPON,
-	EQUIPMENT,
-}
-
 
 public abstract class Item
 {
-	public EJobType allowedJob = EJobType.NONE;
-	EItemType type;
+	public EClassType equipableBy = EClassType.NONE;
 	public string name;
 	public string description;
 
 	public int value;
 	public int price;
 
-	public Item(string n, int v, string d, int p)
+	public Item(string n, int v, string d, int p, EClassType equipable = EClassType.NONE)
 	{
+		equipableBy = equipable;
 		name = n;
 		value = v;
 		description = d;
 		price = p;
 	}
+	public abstract string GetStatType();
 
-	public EItemType ItemType
+	public string GetItemInfo()
 	{
-		get => type;
-		set => type = value;
-	}
-	int GetTextWidth(string text)
-	{
-		return text.Sum(c => c >= 0xAC00 && c <= 0xD7A3 ? 2 : 1); // 한글(가~힣)은 2칸, 나머지는 1칸
-	}
-	string PadRightWithFullWidth(string text, int totalWidth)
-	{
-		int currentWidth = GetTextWidth(text);
-		int padding = totalWidth - currentWidth;
-		return text + new string(' ', Math.Max(0, padding));
-	}
-
-	public string GetItemInfo(bool isEquip = false)
-	{
-		string jobName = allowedJob != EJobType.NONE ? $"[{DataManager.Instance.jobNames[allowedJob]}] " : "";
+		string jobName = equipableBy != EClassType.NONE ? $"[{DataManager.Instance.classNames[equipableBy]}] " : "";
 		string itemName = name;
 		string descriptionText = description;
-		string statType = ItemType == EItemType.WEAPON ? "공격력" : "방어력";
+		string statType = GetStatType(); 
 
 		// 한글과 영어가 섞여도 맞춰진 칸 수로 정렬
 		int nameWidth = 20;
@@ -63,24 +42,34 @@ public abstract class Item
 
 		return $"{formattedName} \t| {statType} + {value} \t| {formattedDescription}\t";
 	}
+
+	public bool CanEquip(EClassType type)
+	{
+		return (equipableBy & type) != 0;
+	}
+
+	static int GetTextWidth(string text)
+	{
+		return text.Sum(c => c >= 0xAC00 && c <= 0xD7A3 ? 2 : 1); // 한글(가~힣)은 2칸, 나머지는 1칸
+	}
+	static string PadRightWithFullWidth(string text, int totalWidth)
+	{
+		int currentWidth = GetTextWidth(text);
+		int padding = totalWidth - currentWidth;
+		return text + new string(' ', Math.Max(0, padding));
+	}
 }
 
 public class Weapon : Item
 {
-	public Weapon(string n, int v, string d, int p, EJobType job = EJobType.NONE) : base(n, v, d, p)
-	{
-		ItemType = EItemType.WEAPON;
-		allowedJob = job;
-	}
+	public Weapon(string n, int v, string d, int p, EClassType equip = EClassType.NONE) : base(n, v, d, p, equip){}
+	public override string GetStatType() => "공격력";
 
 }
 
 public class Equipment : Item
 {
-	public Equipment(string n, int v, string d, int p, EJobType job = EJobType.NONE) : base(n, v, d, p)
-	{
-		ItemType = EItemType.EQUIPMENT;
-		allowedJob = job;
-	}
+	public Equipment(string n, int v, string d, int p, EClassType equip = EClassType.NONE) : base(n, v, d, p, equip){}
+	public override string GetStatType() => "방어력";
 
 }

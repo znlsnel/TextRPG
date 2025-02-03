@@ -1,1 +1,1 @@
-{"name":"김우디","level":11,"job":0,"attack":20,"armor":20,"maxHp":30,"hp":30,"gold":80201,"myItems":["소총","비키니","수련자 갑옷","무쇠갑옷","스파르타의 갑옷","낡은 검","청동 도끼","스파르타의 창","전사의 갑옷","도적의 옷","법사의 로브"],"weapon":"소총","equipment":"전사의 갑옷"}
+{"name":"김우디","level":1,"classType":1,"attack":10,"armor":10,"maxHp":30,"hp":30,"gold":95500,"myItems":["전사의 갑옷","도적의 옷","법사의 로브"],"weapon":"","equipment":"전사의 갑옷"}

@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Aspose.Diagram;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 
 public class PlayerData 
 {
 	public string name;
 	public int level;
-	public EJobType job;
+	public EClassType classType;
 	public int attack;
 	public int armor;
 	public int maxHp;
@@ -20,11 +22,11 @@ public class PlayerData
 	public string weapon = "";
 	public string equipment = "";
 
-	public PlayerData(string name, int level, EJobType job, int attack, int armor, int maxHp, int gold)
+	public PlayerData(string name, int level, EClassType type, int attack, int armor, int maxHp, int gold)
 	{
 		this.name = name;
 		this.level = level;
-		this.job = job;
+		this.classType = type;
 		this.attack = attack;
 		this.armor = armor;
 		this.maxHp = maxHp;
@@ -50,29 +52,28 @@ public class PlayerData
 	}
 }
 
-public enum EJobType 
+public enum EClassType 
 {
-	WARRIOR,
-	ROGUE,
-	MAGE,
-	NONE,
+	WARRIOR = 1 << 0,
+	ROGUE = 1 << 1,
+	MAGE = 1 << 2,
+	ARCHER = 1 << 3,
+	PALADIN = 1 << 4, 
+	NONE = WARRIOR | MAGE | ROGUE | ARCHER | PALADIN,
 }
 
-public struct PlayerJob
+public class PlayerClass
 {
-	public EJobType job;
-	public string jobName;
-	public int attack;
+	public EClassType classType;
+	public  int attack;
 	public int armor;
 	public int health;
 
-	public PlayerJob(EJobType job, int att, int arm, int hp)
+	public PlayerClass(EClassType type, int att, int arm, int hp)
 	{
-		this.job = job;
-		jobName = DataManager.Instance.jobNames[job];
+		this.classType = type;
 		this.attack = att;
 		this.armor = arm;
 		this.health = hp;
 	}
-
 }

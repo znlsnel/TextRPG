@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManager.cs" />
+    <Compile Include="ItemManager.cs" />
     <Compile Include="Scenes\DungeonScene.cs" />
     <Compile Include="SpartaRPG.cs" />
     <Compile Include="Scenes\InventoryScene.cs" />
@@ -68,6 +69,9 @@
     <None Include="App.config" />
     <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

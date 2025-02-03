@@ -9,34 +9,33 @@ public class InventoryData
 {
 	public HashSet<string> ownedItems = new HashSet<string>();
 
-	Item weaponItem;
-	Item equipmentItem;
+	Item _weaponItem;
+	Item _equipmentItem;
 
 	public Item weapon
 	{
-		get => weaponItem;
+		get => _weaponItem;
 		set
 		{
-			if (weaponItem == value)
-			weaponItem = null;
-			else weaponItem = value;
+			if (_weaponItem == value)
+			_weaponItem = null;
+			else _weaponItem = value;
 		}
 	}
-
 	public Item equipment 
 	{
-		get => equipmentItem;
+		get => _equipmentItem;
 		set
 		{
-			if (equipmentItem == value)
-				equipmentItem = null;
-			else equipmentItem = value;
+			if (_equipmentItem == value)
+				_equipmentItem = null;
+			else _equipmentItem = value;
 		}
 	}
 
 	public bool EquipItem(Item item)
 	{
-		if (item.ItemType == EItemType.WEAPON)
+		if (item is Weapon)
 		{
 			bool ret = weapon != item;
 
@@ -59,12 +58,12 @@ public class InventoryData
 		if (weapon == item)
 			weapon = null;
 
-		else if (equipmentItem == item)
-			equipmentItem = null;
+		else if (_equipmentItem == item)
+			_equipmentItem = null;
 	}
 	public bool IsEquippedItem(Item item)
 	{
-		return weapon == item || equipmentItem == item;
+		return weapon == item || _equipmentItem == item;
 	}
 
 	public List<Item> GetPlayerItem()

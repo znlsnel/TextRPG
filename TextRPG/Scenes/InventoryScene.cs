@@ -35,7 +35,7 @@ public class InventoryScene : Scene
 		{
 			bool isEquip = DataManager.Instance.inventory.IsEquippedItem(items[i]);
 			Console.ForegroundColor = isEquip ?  ConsoleColor.Green : ConsoleColor.White;
-			Console.WriteLine($"- {++cnt}.{(isEquip ? " [E]" : " ")}{items[i].GetItemInfo(isEquip)}");
+			Console.WriteLine($"- {++cnt}.{(isEquip ? " [E]" : " ")}{items[i].GetItemInfo()}");
 
 		}
 		Console.ForegroundColor =  ConsoleColor.White;
@@ -60,12 +60,11 @@ public class InventoryScene : Scene
 	{
 		Console.Clear();
 
-		if (item.allowedJob != EJobType.NONE && item.allowedJob != DataManager.Instance.playerData.job)
+		if (item.CanEquip(DataManager.Instance.playerData.classType) == false)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine($"착용이 불가능합니다! 해당 아이템은 [{DataManager.Instance.jobNames[item.allowedJob]}]전용 아이템입니다.");
-			Console.ForegroundColor = ConsoleColor.White; 
-
+			Console.WriteLine($"착용이 불가능합니다! 해당 아이템은 [{DataManager.Instance.classNames[item.equipableBy]}]전용 아이템입니다.");
+			Console.ForegroundColor = ConsoleColor.White;  
 		}
 		else if (DataManager.Instance.inventory.EquipItem(item))
 			Console.WriteLine($"{item.name}을 장착했습니다!");

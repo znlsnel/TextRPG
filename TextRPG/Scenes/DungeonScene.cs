@@ -4,15 +4,37 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
+public struct DungeonInfo
+{
+	public string name;
+	public int level;
+	public int reward;
+
+	public DungeonInfo(string n, int l, int r)
+	{
+		name = n;
+		level = l;
+		reward = r;
+	}
+}
 public class DungeonScene : Scene
 {
 	public DungeonScene(string name) : base(name) { }
 	Random rand = new Random();
 
-	int[] levels = new int[3] { 5, 11, 17 };
-	int[] rewards = new int[3] { 1000, 1700, 2500 };
-	string[] names = new string[3] { "쉬움", "일반", "어려운" };
+	//int[] levels = new int[4] { 5, 11, 17, 30};
+	//int[] rewards = new int[4] { 1000, 1700, 2500, 10000 };
+	//string[] names = new string[4] { "쉬움", "일반", "어려운", "죽음의" };
+	List<DungeonInfo> dungeons = new List<DungeonInfo>() 
+	{
+		new DungeonInfo("쉬움", 5, 1000),
+		new DungeonInfo("일반", 11, 2000),
+		new DungeonInfo("어려운", 17, 3000),
+		new DungeonInfo("죽음의", 30, 10000),
+		new DungeonInfo("지옥의", 300, 100000),
+	};
 
 	public override void StartScene()
 	{
@@ -20,18 +42,21 @@ public class DungeonScene : Scene
 		Console.WriteLine("[던전입장]");
 		Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
 		Console.WriteLine("");
-		Console.WriteLine($"1. {names[0]} 던전 \t 방어력 {levels[0]} 이상 권장");
-		Console.WriteLine($"2. {names[1]} 던전 \t 방어력 {levels[1]} 이상 권장");
-		Console.WriteLine($"3. {names[2]} 던전 \t 방어력 {levels[2]} 이상 권장");
+		
+		for (int i = 0; i < dungeons.Count; i++)
+			Console.WriteLine($"{i+1}. {dungeons[i].name} 던전 \t 방어력 {dungeons[i].level} 이상 권장");
+		
 		Console.WriteLine("0. 나가기");
 
-		int value = SpartaRPG.SelectOption(0, 3);
+		int value = SpartaRPG.SelectOption(0, dungeons.Count);
 
 		if (value != 0)
-			EnterDungeon(value - 1);
+		{
+			EnterDungeon(dungeons[value - 1]);
+		}
 	}
 
-	public void EnterDungeon(int level)
+	public void EnterDungeon(DungeonInfo dungeon)
 	{
 		Console.Clear();
 		PlayerData pd = DataManager.Instance.playerData;
@@ -48,13 +73,14 @@ public class DungeonScene : Scene
 			return;
 		}
 
-		int minusHp = Math.Max(3, rand.Next(20 - pd.armor, 36 - pd.armor));
+		int damage = dungeon.level - pd.armor;
+		int minusHp = Math.Max(rand.Next(0, 4), rand.Next(20, 36) + damage); 
 		int rewardGold = 0;
 
-		if (pd.hp <= minusHp || (pd.armor < levels[level] && rand.Next(0, 100) < 40))
+		if (pd.hp <= minusHp || (pd.armor < dungeon.level && rand.Next(0, 100) < 40))
 		{
 			Console.WriteLine("[던전 클리어 실패..]");
-			Console.WriteLine($"{names[level]} 던전 클리어에 실패 하셨습니다...");
+			Console.WriteLine($"{dungeon.name} 던전 클리어에 실패 하셨습니다...");
 
 			if (pd.hp > minusHp)
 				minusHp = pd.maxHp / 2;
@@ -63,9 +89,9 @@ public class DungeonScene : Scene
 		{
 			Console.WriteLine("[던전 클리어]");
 			Console.WriteLine($"축하합니다!!");
-			Console.WriteLine($"{names[level]} 던전을 클리어 하였습니다!");
-			int add = (rewards[level] * pd.attack / 100);
-			rewardGold = rewards[level] + rand.Next(add, add * 2);
+			Console.WriteLine($"{dungeon.name} 던전을 클리어 하였습니다!");
+			int add = (dungeon.reward * pd.attack / 100);
+			rewardGold = dungeon.reward + rand.Next(add, add * 2);
 		}
 
 		Console.WriteLine("");
@@ -79,7 +105,7 @@ public class DungeonScene : Scene
 			Console.WriteLine($"Level {pd.level} -> {pd.level + 1}");
 			pd.level++;
 			pd.armor++;
-			pd.attack++;
+			pd.attack++; 
 		}
 
 		pd.hp = Math.Max(0, pd.hp - minusHp);
