@@ -42,7 +42,7 @@
 <br><br>
 
 ## 플레이어 데이터
-   ![image](https://github.com/user-attachments/assets/8b7f6005-ca7f-40b4-b61e-5ecb0395d920)
+   ![image](https://github.com/user-attachments/assets/7ed8a104-6f70-43c8-8005-61a8febded77)
    - 플레이어의 데이터는 모든 곳에서 접근이 가능해야 하기에 데이터를 관리하는 DataManager 클래스를 생성하고 singleton 구조로 만들었습니다.<br>
      해당 클래스를 통해서 ItemManager, Inventory, PlayerData에 접근이 가능 하도록 만들었습니다. <br>
      또한 Player Class(직업) 정보도 DataManager에서 관리를 하도록 설계했습니다.
@@ -88,7 +88,8 @@
 <br>
 
 ###
-![image](https://github.com/user-attachments/assets/5d4ec221-8a29-483c-bac5-1eae1195918d)
+![image](https://github.com/user-attachments/assets/facd8b8e-6b12-4f87-b618-90734413df9a)
+![image](https://github.com/user-attachments/assets/13d69cee-0508-447f-b052-2c7b1975db5f)
 - 아이템을 장착할 때, Weapon class인지 Armor 클래스인지 체크하는 방식으로 아이템 타입을 구분했습니다.
 <br><br>
 
